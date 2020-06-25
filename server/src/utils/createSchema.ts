@@ -1,13 +1,6 @@
-import { buildSchema, Resolver, Query } from "type-graphql";
-
-@Resolver()
-class HelloResolver {
-  @Query(() => String)
-  async helloWorld() {
-    return "Hello World!";
-  }
-}
+import { SearchPersonResolver } from '../modules/person/SearchPersonResolver';
+import { buildSchema } from "type-graphql";
 
 export const createSchema = () => buildSchema({
-  resolvers: [HelloResolver],
+  resolvers: [SearchPersonResolver],
 });
