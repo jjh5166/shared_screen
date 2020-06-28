@@ -1,4 +1,5 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
+import CreditList from '../entity/CreditList';
 
 export default class MovieAPI extends RESTDataSource {
 
@@ -32,5 +33,21 @@ export default class MovieAPI extends RESTDataSource {
     const results = response.results
     return Array.isArray(results)
       ? results.map(person => this.personReducer(person)) : [];
+  }
+
+  async fetchCredits(personId: number): Promise<CreditList> {
+    const res = await this.get(`/3/person/${personId}/movie_credits`);
+    const credits: any = { credits: [] }
+    if (Array.isArray(res.cast)) {
+      res.cast.forEach((cred: any) => {
+        credits.credits.push({
+          id: cred.id,
+          title: cred.title,
+          posterPath: cred.poster_path,
+          overview: cred.overview,
+        })
+      })
+    }
+    return credits;
   }
 }
