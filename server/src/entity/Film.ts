@@ -3,7 +3,7 @@ import { ObjectType, Field, ID } from "type-graphql";
 @ObjectType()
 export default class Film {
   @Field(() => ID)
-  id: number;
+  id?: number;
 
   @Field({ nullable: true })
   title?: string;
@@ -13,4 +13,7 @@ export default class Film {
 
   @Field({ nullable: true })
   posterPath?: string;
+
+  @Field({ nullable: true })
+  overview?: string;
 }
