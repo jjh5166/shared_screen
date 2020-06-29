@@ -9,6 +9,9 @@ export class SearchPersonResolver {
   async searchPerson(
     @Arg("searchTerm") searchTerm: string, @Ctx() ctx: MyContext
   ) {
+    if (searchTerm.length < 3) {
+      return null
+    }
     return ctx.dataSources.movieAPI.searchPerson(searchTerm)
   }
 }
