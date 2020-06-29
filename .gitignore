@@ -9,6 +9,10 @@
 # production
 /build
 
+# next.js
+/client/.next/
+/out/
+
 # misc
 .DS_Store
 .env
