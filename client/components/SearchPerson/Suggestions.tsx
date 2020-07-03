@@ -15,9 +15,9 @@ const SuggestedPerson = ({ person }: any) => {
       <SuggInfo>
         <NameC><span>{person.name}</span></NameC>
         <div>
-          {person.knownFor && person.knownFor.map((film: Film, i: number) => {
-            return <span key={film.id}>{film.title && i > 0 && ',  '}{film.title}</span>
-          })}
+          {person.knownFor && person.knownFor.map((film: Film, i: number, array: Array<Film>) => (
+            film.title && <span key={film.id}>{i > 0 && array[i - 1].title && ',  '}{film.title}</span>
+          ))}
         </div>
       </SuggInfo>
     </SuggCard>
