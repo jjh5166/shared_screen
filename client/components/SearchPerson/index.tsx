@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useLayoutEffect, useRef } from "react"
 import { useQuery } from "@apollo/react-hooks";
 import { DebounceInput } from 'react-debounce-input';
 
@@ -13,6 +13,22 @@ export default () => {
     searchPersonQuery,
     { variables: { searchTerm: searchTerm } },
   );
+  const node = useRef<HTMLDivElement>(null)
+  const [open, setOpen] = useState(true);
+  const handleClickOutside = (e: any) => {
+    if (node.current && node.current.contains(e.target)) {
+      setOpen(true);
+      return;
+    }
+    setOpen(false);
+  };
+
+  useLayoutEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [open]);
   // console response
   // useEffect(() => {
   //   console.log(data)
@@ -22,14 +38,14 @@ export default () => {
   // }, [data])
   return (
     <PageContainer>
-      <SearchContainer>
+      <SearchContainer ref={node}>
         <DebounceInput
           minLength={3}
           debounceTimeout={300}
           onChange={async (e) => {
             updateSearch(e.target.value)
           }} />
-        {data && <Suggestions data={data.searchPerson} />}
+        {data && <Suggestions data={data.searchPerson} displayed={open} />}
       </SearchContainer>
     </PageContainer>
   )

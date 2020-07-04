@@ -12,12 +12,13 @@ export const SearchContainer = styled.div`
 
 // Suggestions
 
-export const SuggContainer = styled.div`
+export const SuggContainer = styled.div<{ displayed: boolean }>`
   display: flex;
   flex-direction: column;
   overflow: hidden scroll;
   outline: solid navy 2px;
   height: 380px;
+  display: ${props => props.displayed ? 'block' : 'none'};
 `
 export const ImgSpacer = styled.div`
   width: 66px;
