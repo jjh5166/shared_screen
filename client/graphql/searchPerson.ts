@@ -6,6 +6,7 @@ export const searchPersonQuery = gql`
       name
       id
       imagePath
+      knownAs
       knownFor{
         id
         title

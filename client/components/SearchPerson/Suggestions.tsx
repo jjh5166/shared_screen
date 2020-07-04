@@ -15,6 +15,7 @@ const SuggestedPerson = ({ person }: any) => {
       <SuggInfo>
         <NameC><span>{person.name}</span></NameC>
         <div>
+          {person.knownAs && <span>{person.knownAs}, </span>}
           {person.knownFor && person.knownFor.map((film: Film, i: number, array: Array<Film>) => (
             film.title && <span key={film.id}>{i > 0 && array[i - 1].title && ',  '}{film.title}</span>
           ))}
