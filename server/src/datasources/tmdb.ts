@@ -1,6 +1,12 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
 import CreditList from '../entity/CreditList';
 
+const knownAsMap: Record<string, string | object> = {
+  Acting: "Actor",
+  Writing: "Writer",
+  Directing: "Director"
+}
+
 export default class MovieAPI extends RESTDataSource {
 
   baseURL = 'https://api.themoviedb.org/';
@@ -23,6 +29,7 @@ export default class MovieAPI extends RESTDataSource {
     return {
       id: person.id || 0,
       name: person.name,
+      knownAs: knownAsMap[person.known_for_department],
       knownFor: person.known_for.map((film: any) => this.filmReducer(film)) || [],
       imagePath: person.profile_path
     };

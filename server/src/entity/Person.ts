@@ -12,6 +12,9 @@ export default class Person {
   @Field({ nullable: true })
   imagePath?: string;
 
+  @Field({ nullable: true })
+  knownAs?: string;
+
   @Field(() => [Film])
   credits: Film[];
 
