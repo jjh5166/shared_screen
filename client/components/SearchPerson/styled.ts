@@ -21,14 +21,21 @@ export const SuggContainer = styled.div<{ displayed: boolean }>`
   display: ${props => props.displayed ? 'block' : 'none'};
 `
 export const ImgSpacer = styled.div`
-  width: 66px;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 export const SuggImgContainer = styled.div`
-  width: 60px;
   display: flex;
+  height: 80px;
+  width: 60px;
+  img{
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+  }
 `
 export const SuggCard = styled.div`
   flex:1;
