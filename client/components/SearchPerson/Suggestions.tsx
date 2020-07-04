@@ -23,10 +23,11 @@ const SuggestedPerson = ({ person }: any) => {
     </SuggCard>
   )
 }
+type SuggestionsProps = SearchPersonResults & { displayed: boolean }
 
-export default ({ data }: SearchPersonResults) => {
+export default ({ data, displayed }: SuggestionsProps) => {
   return (
-    <SuggContainer>
+    <SuggContainer displayed={displayed}>
       {
         data.map((person: PersonData) => {
           return <SuggestedPerson key={person.id} person={person} />
