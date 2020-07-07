@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 
-import { LayoutContainer } from './styled';
+import { LayoutContainer, PageContainer, LayoutHeader } from './styled';
 
 type Props = {
   children?: ReactNode
@@ -16,7 +16,7 @@ const Layout = ({ children, title = 'SharedScreen' }: Props) => (
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <header>
+    <LayoutHeader>
       <nav>
         <Link href="/">
           <a>Home</a>
@@ -30,8 +30,10 @@ const Layout = ({ children, title = 'SharedScreen' }: Props) => (
           <a>Account</a>
         </Link>{' '}
       </nav>
-    </header>
-    {children}
+    </LayoutHeader>
+    <PageContainer>
+      {children}
+    </PageContainer>
   </LayoutContainer>
 )
 
