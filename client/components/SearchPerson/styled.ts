@@ -1,24 +1,35 @@
 import styled from "styled-components";
 
-export const PageContainer = styled.main`
-  display: flex;
-  justify-content: center;
-`
 export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
+  position: relative;
+  align-items: center;
+  input{
+    width: 100%;
+  }
 `
-
+export const PplResultsSection = styled.section`
+  outline: solid red 2px;
+  min-height: 60%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`
 // Suggestions
 
 export const SuggContainer = styled.div<{ displayed: boolean }>`
+  position: absolute;
+  margin-top: 26px;
   display: flex;
   flex-direction: column;
   overflow: hidden scroll;
   outline: solid navy 2px;
-  height: 380px;
+  max-height: 380px;
   display: ${props => props.displayed ? 'block' : 'none'};
+  background: #fff;
 `
 export const ImgSpacer = styled.div`
   display: flex;

@@ -1,18 +1,27 @@
 import { PersonData, SearchPersonResults, Film } from '../../interfaces';
 import { SuggContainer, SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC } from './styled';
-
-const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w92/';
+import { useContext } from 'react';
+import { faceImagePath } from '../../utils/faceImagePath';
+import { useSelectedState, SelectedUpdaterContext } from './selected-context';
 
 const SuggestedPerson = ({ person }: any) => {
-
+  const setSelected = useContext(SelectedUpdaterContext)
+  const selectedPeople = useSelectedState()
+  const clickHandler = (person: PersonData) => {
+    setSelected([...selectedPeople, person])
+  }
   return (
     <SuggCard>
       <ImgSpacer>
         <SuggImgContainer>
-          <img src={person.imagePath ? IMAGE_BASE_URL + person.imagePath : '/blank_face.jpg'} />
+          <img src={faceImagePath(person.imagePath, 92)} />
         </SuggImgContainer>
       </ImgSpacer>
-      <SuggInfo>
+      <SuggInfo
+        onClick={async () => {
+          clickHandler(person)
+        }}
+      >
         <NameC><span>{person.name}</span></NameC>
         <div>
           {person.knownAs && <span>{person.knownAs}, </span>}
