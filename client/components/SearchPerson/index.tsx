@@ -1,4 +1,4 @@
-import { useState, createContext, /*useEffect,*/ useLayoutEffect, useRef } from "react"
+import { useState, createContext, useEffect, useRef } from "react"
 import { useQuery } from "@apollo/react-hooks";
 import { DebounceInput } from 'react-debounce-input';
 
@@ -27,19 +27,13 @@ export default () => {
     setOpen(false);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+    // console.log(data);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [open]);
-  // console response
-  // useEffect(() => {
-  //   console.log(data)
-  //   return () => {
-  //     // cleanup
-  //   }
-  // }, [data])
   return (
     <SelectedProvider>
       <SearchContainer ref={node}>
