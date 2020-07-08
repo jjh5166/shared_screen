@@ -1,14 +1,18 @@
-import { useState, useEffect, useLayoutEffect, useRef } from "react"
+import { useState, createContext, /*useEffect,*/ useLayoutEffect, useRef } from "react"
 import { useQuery } from "@apollo/react-hooks";
 import { DebounceInput } from 'react-debounce-input';
 
-
 import { searchPersonQuery } from "../../graphql/searchPerson";
 import Suggestions from "./Suggestions";
-import { PageContainer, SearchContainer } from './styled'
+import PeopleContainer from "../PeopleContainer";
+import Results from "../Results";
+import { SearchContainer, PplResultsSection } from './styled'
+import { SelectedProvider } from "./selected-context";
+
+export const SearchContext = createContext<any>(null);
 
 export default () => {
-  const [searchTerm, updateSearch] = useState("")
+  const [searchTerm, updateSearch] = useState("");
   const { data } = useQuery(
     searchPersonQuery,
     { variables: { searchTerm: searchTerm } },
@@ -37,7 +41,7 @@ export default () => {
   //   }
   // }, [data])
   return (
-    <PageContainer>
+    <SelectedProvider>
       <SearchContainer ref={node}>
         <DebounceInput
           minLength={3}
@@ -47,6 +51,10 @@ export default () => {
           }} />
         {searchTerm.length !== 0 && data && <Suggestions data={data.searchPerson} displayed={open} />}
       </SearchContainer>
-    </PageContainer>
+      <PplResultsSection>
+        <PeopleContainer />
+        <Results />
+      </PplResultsSection>
+    </SelectedProvider>
   )
 }
