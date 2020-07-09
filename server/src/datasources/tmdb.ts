@@ -52,6 +52,7 @@ export default class MovieAPI extends RESTDataSource {
           title: cred.title,
           posterPath: cred.poster_path,
           overview: cred.overview,
+          releaseDate: cred.release_date
         })
       })
     }
