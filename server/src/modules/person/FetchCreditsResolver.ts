@@ -1,12 +1,12 @@
-import { MyContext } from '../../types/MyContext'
 import { Resolver, Query, Arg, Ctx } from "type-graphql";
-import CreditList from '../../entity/CreditList';
 
+import { MyContext } from '../../types/MyContext'
+import CreditsObj from '../../entity/CreditsObj';
 
 @Resolver()
 export class FetchCreditsResolver {
 
-  @Query(() => CreditList)
+  @Query(() => CreditsObj)
   async fetchCredits(
     @Arg("id") id: number, @Ctx() ctx: MyContext
   ) {
