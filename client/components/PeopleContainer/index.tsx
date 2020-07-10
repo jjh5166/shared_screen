@@ -3,7 +3,7 @@ import React from 'react';
 import { PplContainer } from './styled';
 import { PersonData } from '../../interfaces';
 import PersonCard from './PersonCard';
-import { useSelectedState } from '../SearchPerson/selected-context';
+import { useSelectedState } from '../../context/selectedPeople';
 
 const PeopleContainer = React.memo(function PeopleContainer() {
   const selectedPeople = useSelectedState()

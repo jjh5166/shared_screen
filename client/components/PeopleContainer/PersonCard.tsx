@@ -1,7 +1,7 @@
 import { faceImagePath } from "../../utils/faceImagePath";
 import { PCardContainer, CloseX } from "./styled";
 import { PersonData } from "../../interfaces";
-import { useSelectedDispatch } from "../SearchPerson/selected-context";
+import { useSelectedDispatch } from "../../context/selectedPeople";
 
 const PersonCard = ({ person }: any) => {
   const selectedDispatch = useSelectedDispatch()

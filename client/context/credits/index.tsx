@@ -13,7 +13,7 @@ function creditsReducer(state: CreditState, action: CreditAction): CreditState {
     case 'ADD':
       return { ...state, [action.payload.id]: action.payload.info };
     case 'REMOVE':
-      return {};
+      return { ...state };
     default:
       return state;
   }
@@ -39,7 +39,9 @@ function useCreditsState() {
 
 function useCreditsDispatch() {
   const creditsDispatch = useContext(CreditsDispatchContext)
-
+  if (typeof creditsDispatch === undefined) {
+    throw new Error('creditsDispatch must be used within a CreditsProvider')
+  }
   return creditsDispatch
 }
 

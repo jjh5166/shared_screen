@@ -2,9 +2,9 @@ import { useApolloClient } from '@apollo/react-hooks';
 
 import { PersonData, SearchPersonResults, Film } from '../../interfaces';
 import { faceImagePath } from '../../utils/faceImagePath';
-import { useSelectedDispatch } from './selected-context';
+import { useSelectedDispatch } from '../../context/selectedPeople';
 import { fetchCreditsQuery } from '../../graphql/fetchCredits';
-import { useCreditsDispatch } from './credits-context';
+import { useCreditsDispatch } from '../../context/credits';
 import { SuggContainer, SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC } from './styled';
 
 const SuggestedPerson = ({ person }: any) => {
