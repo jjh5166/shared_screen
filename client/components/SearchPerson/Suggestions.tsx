@@ -1,10 +1,11 @@
+import { useApolloClient } from '@apollo/react-hooks';
+
 import { PersonData, SearchPersonResults, Film } from '../../interfaces';
-import { SuggContainer, SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC } from './styled';
 import { faceImagePath } from '../../utils/faceImagePath';
 import { useSelectedDispatch } from './selected-context';
-import { useApolloClient } from '@apollo/react-hooks';
 import { fetchCreditsQuery } from '../../graphql/fetchCredits';
 import { useCreditsDispatch } from './credits-context';
+import { SuggContainer, SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC } from './styled';
 
 const SuggestedPerson = ({ person }: any) => {
   const selectedDispatch = useSelectedDispatch()
