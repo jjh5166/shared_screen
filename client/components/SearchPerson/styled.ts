@@ -30,6 +30,7 @@ export const SuggContainer = styled.div<{ displayed: boolean }>`
   max-height: 380px;
   display: ${props => props.displayed ? 'block' : 'none'};
   background: #fff;
+  z-index: 2;
 `
 export const ImgSpacer = styled.div`
   display: flex;

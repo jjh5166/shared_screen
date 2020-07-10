@@ -1,14 +1,12 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useContext, useReducer } from 'react';
+
 import { PersonData } from '../../interfaces';
+import addItem from '../../utils/addItem';
+import removeItem from '../../utils/removeItem';
 
 const SelectedStateContext = createContext<any>(null);
 const SelectedDispatchContext = createContext<any>(null);
 
-function addItem(array: any, payload: any) {
-  let newArray = array.slice()
-  newArray.push(payload)
-  return newArray
-}
 type SelectedState = [];
 type SelectedAction =
   | { type: "ADD"; payload: PersonData }
@@ -19,7 +17,7 @@ function selectedReducer(state: SelectedState, action: SelectedAction): Selected
     case 'ADD':
       return addItem(state, action.payload);
     case 'REMOVE':
-      return [];
+      return removeItem(state, action.payload);
     default:
       return state;
   }
@@ -45,9 +43,11 @@ function useSelectedState() {
 }
 
 function useSelectedDispatch() {
-  const creditsDispatch = useContext(SelectedDispatchContext)
-
-  return creditsDispatch
+  const selectedDispatch = useContext(SelectedDispatchContext)
+  if (typeof selectedDispatch === undefined) {
+    throw new Error('selectedDispatch must be used within a SelectedProvider')
+  }
+  return selectedDispatch
 }
 
 export { SelectedProvider, useSelectedState, useSelectedDispatch };
