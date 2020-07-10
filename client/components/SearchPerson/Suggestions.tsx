@@ -3,12 +3,26 @@ import { SuggContainer, SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC }
 import { useContext } from 'react';
 import { faceImagePath } from '../../utils/faceImagePath';
 import { useSelectedState, SelectedUpdaterContext } from './selected-context';
+import { useApolloClient } from '@apollo/react-hooks';
+import { fetchCreditsQuery } from '../../graphql/fetchCredits';
+import { useCreditsDispatch } from './credits-context';
 
 const SuggestedPerson = ({ person }: any) => {
   const setSelected = useContext(SelectedUpdaterContext)
   const selectedPeople = useSelectedState()
+  const client = useApolloClient()
+  const creditsDispatch = useCreditsDispatch()
   const clickHandler = (person: PersonData) => {
     setSelected([...selectedPeople, person])
+    client.query({
+      query: fetchCreditsQuery,
+      variables: { id: Number(person.id) }
+    }).then(res => {
+      creditsDispatch({
+        type: 'ADD',
+        payload: { id: person.id, info: res.data.fetchCredits.credits }
+      })
+    }).catch(err => console.log(err))
   }
   return (
     <SuggCard>

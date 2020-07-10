@@ -8,6 +8,7 @@ import PeopleContainer from "../PeopleContainer";
 import Results from "../Results";
 import { SearchContainer, PplResultsSection } from './styled'
 import { SelectedProvider } from "./selected-context";
+import { CreditsProvider } from "./credits-context";
 
 export const SearchContext = createContext<any>(null);
 
@@ -36,19 +37,21 @@ export default () => {
   }, [open]);
   return (
     <SelectedProvider>
-      <SearchContainer ref={node}>
-        <DebounceInput
-          minLength={3}
-          debounceTimeout={300}
-          onChange={async (e) => {
-            updateSearch(e.target.value)
-          }} />
-        {searchTerm.length !== 0 && data && <Suggestions data={data.searchPerson} displayed={open} />}
-      </SearchContainer>
-      <PplResultsSection>
-        <PeopleContainer />
-        <Results />
-      </PplResultsSection>
+      <CreditsProvider>
+        <SearchContainer ref={node}>
+          <DebounceInput
+            minLength={3}
+            debounceTimeout={300}
+            onChange={async (e) => {
+              updateSearch(e.target.value)
+            }} />
+          {!!searchTerm.length && data && <Suggestions data={data.searchPerson} displayed={open} />}
+        </SearchContainer>
+        <PplResultsSection>
+          <PeopleContainer />
+          <Results />
+        </PplResultsSection>
+      </CreditsProvider>
     </SelectedProvider>
   )
 }
