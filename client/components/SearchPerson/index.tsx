@@ -3,12 +3,12 @@ import { useQuery } from "@apollo/react-hooks";
 import { DebounceInput } from 'react-debounce-input';
 
 import { searchPersonQuery } from "../../graphql/searchPerson";
-import Suggestions from "./Suggestions";
+import Suggestions from "../Suggestions";
 import PeopleContainer from "../PeopleContainer";
 import Results from "../Results";
 import { SearchContainer, PplResultsSection } from './styled'
-import { SelectedProvider } from "./selected-context";
-import { CreditsProvider } from "./credits-context";
+import { SelectedProvider } from "../../context/selectedPeople";
+import { CreditsProvider } from "../../context/credits";
 
 export const SearchContext = createContext<any>(null);
 
