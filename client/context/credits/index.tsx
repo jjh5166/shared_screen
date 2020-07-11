@@ -1,4 +1,6 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useContext, useReducer } from 'react';
+
+import removeProperty from '../../utils/removeProperty';
 
 const CreditsStateContext = createContext<any>(null);
 const CreditsDispatchContext = createContext<any>(null);
@@ -6,14 +8,14 @@ const CreditsDispatchContext = createContext<any>(null);
 type CreditState = {};
 type CreditAction =
   | { type: "ADD"; payload: { id: number, info: any } }
-  | { type: "REMOVE"; payload: string };
+  | { type: "REMOVE"; payload: number };
 
 function creditsReducer(state: CreditState, action: CreditAction): CreditState {
   switch (action.type) {
     case 'ADD':
       return { ...state, [action.payload.id]: action.payload.info };
     case 'REMOVE':
-      return { ...state };
+      return removeProperty(state, action.payload);
     default:
       return state;
   }
