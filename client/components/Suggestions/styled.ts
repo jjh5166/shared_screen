@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SuggContainer = styled.div<{ displayed: boolean }>`
+  width: 100%;
   position: absolute;
   margin-top: 26px;
   display: flex;
