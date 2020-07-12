@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from 'react';
 
 import removeProperty from '../../utils/removeProperty';
+import { parseCreditInfo } from '../../utils/parseCreditInfo';
 
 const CreditsStateContext = createContext<any>(null);
 const CreditsDispatchContext = createContext<any>(null);
@@ -13,7 +14,7 @@ type CreditAction =
 function creditsReducer(state: CreditState, action: CreditAction): CreditState {
   switch (action.type) {
     case 'ADD':
-      return { ...state, [action.payload.id]: action.payload.info };
+      return { ...state, [action.payload.id]: parseCreditInfo(action.payload.info) };
     case 'REMOVE':
       return removeProperty(state, action.payload);
     default:
