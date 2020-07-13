@@ -10,6 +10,7 @@ import { SearchContainer, PplResultsSection } from './styled'
 import { SelectedProvider } from "../../context/selectedPeople";
 import { CreditsProvider } from "../../context/credits";
 import Compose from "../../utils/compose";
+import { SharedProvider } from "../../context/sharedCredits";
 
 export const SearchContext = createContext<any>(null);
 
@@ -37,7 +38,7 @@ export default () => {
     };
   }, [open]);
   return (
-    <Compose components={[CreditsProvider, SelectedProvider]}>
+    <Compose components={[SharedProvider, CreditsProvider, SelectedProvider]}>
       <SearchContainer ref={node}>
         <DebounceInput
           minLength={3}
