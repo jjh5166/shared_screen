@@ -9,6 +9,7 @@ import Results from "../Results";
 import { SearchContainer, PplResultsSection } from './styled'
 import { SelectedProvider } from "../../context/selectedPeople";
 import { CreditsProvider } from "../../context/credits";
+import Compose from "../../utils/compose";
 
 export const SearchContext = createContext<any>(null);
 
@@ -36,22 +37,20 @@ export default () => {
     };
   }, [open]);
   return (
-    <SelectedProvider>
-      <CreditsProvider>
-        <SearchContainer ref={node}>
-          <DebounceInput
-            minLength={3}
-            debounceTimeout={300}
-            onChange={async (e) => {
-              updateSearch(e.target.value)
-            }} />
-          {!!searchTerm.length && data && <Suggestions data={data.searchPerson} displayed={open} />}
-        </SearchContainer>
-        <PplResultsSection>
-          <PeopleContainer />
-          <Results />
-        </PplResultsSection>
-      </CreditsProvider>
-    </SelectedProvider>
+    <Compose components={[CreditsProvider, SelectedProvider]}>
+      <SearchContainer ref={node}>
+        <DebounceInput
+          minLength={3}
+          debounceTimeout={300}
+          onChange={async (e) => {
+            updateSearch(e.target.value)
+          }} />
+        {!!searchTerm.length && data && <Suggestions data={data.searchPerson} displayed={open} />}
+      </SearchContainer>
+      <PplResultsSection>
+        <PeopleContainer />
+        <Results />
+      </PplResultsSection>
+    </Compose>
   )
 }
