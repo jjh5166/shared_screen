@@ -32,7 +32,6 @@ export default () => {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    // console.log(data);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };

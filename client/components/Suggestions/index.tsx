@@ -2,17 +2,18 @@ import { useApolloClient } from '@apollo/react-hooks';
 
 import { PersonData, SearchPersonResults, Film } from '../../interfaces';
 import { faceImagePath } from '../../utils/faceImagePath';
-import { useSelectedDispatch } from '../../context/selectedPeople';
+import { useSelectedDispatch, useSelectedState } from '../../context/selectedPeople';
 import { fetchCreditsQuery } from '../../graphql/fetchCredits';
 import { useCreditsDispatch } from '../../context/credits';
 import { SuggContainer, SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC } from './styled';
 import { useSharedDispatch } from '../../context/sharedCredits';
 
 const SuggestedPerson = ({ person }: any) => {
-  const selectedDispatch = useSelectedDispatch()
-  const client = useApolloClient()
-  const creditsDispatch = useCreditsDispatch()
-  const sharedDispatch = useSharedDispatch()
+  const selectedDispatch = useSelectedDispatch();
+  const client = useApolloClient();
+  const creditsDispatch = useCreditsDispatch();
+  const sharedDispatch = useSharedDispatch();
+  const selectedPeople = useSelectedState();
   const clickHandler = async (person: PersonData) => {
     await selectedDispatch({ type: 'ADD', payload: person })
     await client.query({
@@ -38,7 +39,9 @@ const SuggestedPerson = ({ person }: any) => {
       </ImgSpacer>
       <SuggInfo
         onClick={async () => {
-          clickHandler(person)
+          if (!selectedPeople[person.id]) {
+            clickHandler(person);
+          }
         }}
       >
         <NameC><span>{person.name}</span></NameC>

@@ -5,12 +5,12 @@ import { useSelectedDispatch } from "../../context/selectedPeople";
 import { useCreditsDispatch } from "../../context/credits";
 import { useSharedDispatch } from "../../context/sharedCredits";
 
-const PersonCard = ({ person }: any) => {
+const PersonCard = ({ person }: { person: PersonData }) => {
   const selectedDispatch = useSelectedDispatch();
   const creditsDispatch = useCreditsDispatch();
   const sharedDispatch = useSharedDispatch();
   const clickHandler = (person: PersonData) => {
-    selectedDispatch({ type: "REMOVE", payload: person });
+    selectedDispatch({ type: "REMOVE", payload: person.id });
     creditsDispatch({ type: "REMOVE", payload: person.id });
     sharedDispatch({ type: "REMOVE", payload: person.id });
   }

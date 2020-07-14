@@ -1,23 +1,21 @@
 import { createContext, useContext, useReducer, ReactNode } from 'react';
 
 import { PersonData } from '../../interfaces';
-import addItem from '../../utils/addItem';
-import removeItem from '../../utils/removeItem';
+import removeProperty from '../../utils/removeProperty';
 
 const SelectedStateContext = createContext<any>(null);
 const SelectedDispatchContext = createContext<any>(null);
 
-type SelectedState = [];
 type SelectedAction =
   | { type: "ADD"; payload: PersonData }
   | { type: "REMOVE"; payload: string };
 
-function selectedReducer(state: SelectedState, action: SelectedAction): SelectedState {
+function selectedReducer(state: {}, action: SelectedAction): {} {
   switch (action.type) {
     case 'ADD':
-      return addItem(state, action.payload);
+      return { ...state, [action.payload.id]: action.payload };
     case 'REMOVE':
-      return removeItem(state, action.payload);
+      return removeProperty(state, action.payload);
     default:
       return state;
   }
