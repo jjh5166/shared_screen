@@ -6,13 +6,12 @@ import PersonCard from './PersonCard';
 import { useSelectedState } from '../../context/selectedPeople';
 
 const PeopleContainer = React.memo(function PeopleContainer() {
-  const selectedPeople = useSelectedState()
-  console.log(selectedPeople)
+  const selectedPeople = useSelectedState();
   return (
     <PplContainer>
-      {!!selectedPeople.length && selectedPeople.map((per: PersonData) => {
-        return <PersonCard key={"card" + per.id} person={per} />
-      })}
+      {!!selectedPeople.length && selectedPeople.map((per: PersonData) => (
+        <PersonCard key={"card" + per.id} person={per} />
+      ))}
     </PplContainer>
   )
 })

@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, ReactNode } from 'react';
 
 import { PersonData } from '../../interfaces';
 import addItem from '../../utils/addItem';
@@ -23,7 +23,7 @@ function selectedReducer(state: SelectedState, action: SelectedAction): Selected
   }
 }
 
-function SelectedProvider({ children }: any) {
+function SelectedProvider({ children }: { children: ReactNode }) {
   const [selectedState, selectedDispatch] = useReducer(selectedReducer, [])
   return (
     <SelectedStateContext.Provider value={selectedState}>
