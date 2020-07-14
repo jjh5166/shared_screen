@@ -2,12 +2,14 @@ require('dotenv').config();
 import "reflect-metadata";
 import { ApolloServer } from 'apollo-server-express';
 import Express from 'express';
+import cors from 'cors';
 // import { createConnection } from 'typeorm';
 
 import { createSchema } from "./utils/createSchema";
 import MovieAPI from './datasources/tmdb';
 declare var process: {
   env: {
+    CLIENT_ORIGIN: string
     DATABASE_NAME: string
   }
 }
@@ -27,6 +29,10 @@ const main = async () => {
   })
 
   const app = Express();
+
+  app.use(cors({
+    origin: process.env.CLIENT_ORIGIN
+  }));
 
   apolloServer.applyMiddleware({ app });
 
