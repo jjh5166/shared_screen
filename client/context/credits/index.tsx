@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, ReactNode } from 'react';
 
 import removeProperty from '../../utils/removeProperty';
 import { parseCreditInfo } from '../../utils/parseCreditInfo';
@@ -21,7 +21,7 @@ function creditsReducer(state: CreditState, action: CreditAction): CreditState {
       return state;
   }
 }
-function CreditsProvider({ children }: any) {
+function CreditsProvider({ children }: { children: ReactNode }) {
   const [creditState, creditDispatch] = useReducer(creditsReducer, {})
   return (
     <CreditsStateContext.Provider value={creditState}>
