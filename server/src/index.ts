@@ -11,6 +11,7 @@ declare var process: {
   env: {
     CLIENT_ORIGIN: string
     DATABASE_NAME: string
+    PORT: number
   }
 }
 
@@ -36,8 +37,10 @@ const main = async () => {
 
   apolloServer.applyMiddleware({ app });
 
-  app.listen(4000, () => {
-    console.log('server started on localhost:4000/graphql')
+  const port = process.env.PORT || 4000;
+
+  app.listen(port, () => {
+    console.log(`server started on localhost:${port}/graphql`)
   })
 }
 
