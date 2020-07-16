@@ -20,8 +20,8 @@ function setSharedProperty(perPerson: any): Array<number> {
     return []
   }
   return values.reduce(
-    (arr: any, next: any) => {
-      if (arr.length === 0) {
+    (arr: any, next: any, i: number) => {
+      if (i === 0) {
         return next
       } else {
         return arr.filter((x: any) => next.includes(x))

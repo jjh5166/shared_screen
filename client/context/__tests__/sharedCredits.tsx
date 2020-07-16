@@ -23,7 +23,6 @@ const Example = () => {
     shared: [],
     perPerson: {}
   })
-  console.log(sharedState);
   return (
     <div>
       <div>
@@ -64,23 +63,23 @@ const Example = () => {
 it('only contains shared films', () => {
   const { getByText } = render(<Example />)
 
-  expect(() => getByText("FILM")).not.toBeInTheDocument()
+  expect(() => getByText("FILM")).toThrowError()
 
   fireEvent.click(getByText('Send 1'))
 
-  expect(() => getByText("FILM")).not.toBeInTheDocument()
+  expect(() => getByText("FILM")).toThrowError()
 
   fireEvent.click(getByText('Send 2'))
 
-  expect(getByText("FILM")).not.toBeInTheDocument()
+  expect(getByText("FILM")).toBeInTheDocument()
 
   fireEvent.click(getByText('Send 3'))
 
-  expect(() => getByText("FILM")).not.toBeInTheDocument()
+  expect(() => getByText("FILM")).toThrowError()
 
   fireEvent.click(getByText('Send 4'))
 
-  expect(() => getByText("FILM")).not.toBeInTheDocument()
+  expect(() => getByText("FILM")).toThrowError()
 
   screen.debug();
 })
