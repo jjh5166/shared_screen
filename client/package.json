@@ -7,7 +7,7 @@
     "build": "next build && next export",
     "start": "next start",
     "test": "jest --config ./jest.config.js",
-    "test:watch": "yarn test -- --watch",
+    "test:watch": "test --watch",
     "gen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
