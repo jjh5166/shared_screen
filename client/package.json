@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build && next export",
     "start": "next start",
-    "test": "jest --config ./jest.config.js",
+    "test": "jest",
     "test:watch": "test --watch",
     "gen": "graphql-codegen --config codegen.yml"
   },
@@ -25,6 +25,10 @@
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
     "@graphql-codegen/cli": "1.15.4",
     "@graphql-codegen/typescript": "^1.15.4",
     "@graphql-codegen/typescript-operations": "^1.15.4",
@@ -35,9 +39,9 @@
     "@types/jest": "^26.0.4",
     "@types/react": "^16.9.41",
     "@types/styled-components": "^5.1.0",
+    "babel-jest": "^26.1.0",
     "jest": "^26.1.0",
     "netlify-cli": "^2.58.0",
-    "ts-jest": "^26.1.2",
     "typescript": "^3.9.5"
   }
 }
