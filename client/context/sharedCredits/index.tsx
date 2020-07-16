@@ -39,7 +39,7 @@ function setSharedState(perPerson: any): SharedState {
   return newState;
 };
 
-function sharedReducer(state: SharedState, action: SharedAction): SharedState {
+export function sharedReducer(state: SharedState, action: SharedAction): SharedState {
   switch (action.type) {
     case 'ADD':
       return setSharedState({
