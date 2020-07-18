@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { theme } from '../../constants';
 
 export const ResContainer = styled.div`
   height: 80%;
   width: 45%;
-  outline: solid 2px green;
+  outline: solid 2px ${theme.charlie};
   display: flex;
   flex-wrap: wrap;
 `

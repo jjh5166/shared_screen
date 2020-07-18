@@ -1,10 +1,12 @@
 import styled from 'styled-components'
+import { theme } from '../../constants';
 
 export const LayoutContainer = styled.div`
   height: 100vh;
   width: 100%;
   display: grid;
   grid-template-rows: 4% 1fr;
+  background: ${theme.background};
 `
 export const LayoutHeader = styled.header`
   nav{
