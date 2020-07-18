@@ -45,7 +45,15 @@ export default () => {
           onChange={async (e) => {
             updateSearch(e.target.value)
           }} />
-        {!!searchTerm.length && data && <Suggestions data={data.searchPerson} displayed={open} />}
+        {
+          !!searchTerm.length &&
+          !!data &&
+          !!data.searchPerson.length &&
+          <Suggestions
+            data={data.searchPerson}
+            displayed={open}
+          />
+        }
       </SearchContainer>
       <PplResultsSection>
         <PeopleContainer />
