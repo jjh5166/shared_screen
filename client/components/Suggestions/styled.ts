@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import { lighten } from "polished";
+
+import { theme } from '../../constants';
 
 export const SuggContainer = styled.div<{ displayed: boolean }>`
   width: 100%;
@@ -7,10 +10,10 @@ export const SuggContainer = styled.div<{ displayed: boolean }>`
   display: flex;
   flex-direction: column;
   overflow: hidden scroll;
-  outline: solid navy 2px;
+  outline: solid ${theme.alpha} 2px;
   max-height: 380px;
   display: ${props => props.displayed ? 'block' : 'none'};
-  background: #fff;
+  background: ${lighten(0.1, theme.background)};
   z-index: 2;
 `
 export const ImgSpacer = styled.div`

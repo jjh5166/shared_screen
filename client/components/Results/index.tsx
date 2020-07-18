@@ -12,22 +12,21 @@ const FilmCard = ({ film }: { film: Film }) => (
   </FilmCardContainer>
 )
 
-const ResultsContainer = React.memo(function ResultsContainer() {
+export default () => {
   const credits = useCreditsState();
-  const sharedFilmIds = useSharedState();
+  const shared = useSharedState();
+
   return (
     <ResContainer>
-      {!!sharedFilmIds.shared.length &&
-        sharedFilmIds.shared.map((film: number) => {
+      {!!shared.shared.length &&
+        shared.shared.map((film: number) => {
           return (
             <FilmCard
               key={film}
-              film={credits[Object.keys(credits)[0]][film]}
+              film={credits[Object.keys(shared.perPerson)[0]][film]}
             />
           )
         })}
     </ResContainer>
   )
-})
-
-export default ResultsContainer
+}
