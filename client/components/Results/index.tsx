@@ -1,16 +1,18 @@
 import React from 'react';
 
-import { ResContainer, FilmCardContainer } from "./styled"
+import { ResContainer } from "./styled";
+import { ItemCard } from '../Card';
 import { useSharedState } from '../../context/sharedCredits';
 import { useCreditsState } from '../../context/credits';
 import { posterImagePath } from '../../utils/posterImagePath';
 import { Film } from '../../interfaces';
 
 const FilmCard = ({ film }: { film: Film }) => (
-  <FilmCardContainer title={film.title}>
-    <img src={posterImagePath(film.posterPath, 185)} />
-  </FilmCardContainer>
-)
+  <ItemCard
+    name={film.title}
+    imgPath={posterImagePath(film.posterPath, 185)}
+  />
+);
 
 export default () => {
   const credits = useCreditsState();
