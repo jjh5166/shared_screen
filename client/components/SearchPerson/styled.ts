@@ -5,7 +5,7 @@ import { lighten } from 'polished';
 export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 35%;
   position: relative;
   align-items: center;
   input{
