@@ -2,22 +2,12 @@ import styled from "styled-components";
 import { theme } from '../../constants';
 
 export const ResContainer = styled.div`
-  height: 80%;
+  height: 75%;
   width: 45%;
+  padding: 10px;
   outline: solid 2px ${theme.charlie};
   display: flex;
   flex-wrap: wrap;
-`
-export const FilmCardContainer = styled.div`
-  display: flex;
-  height: 110px;
-  width: 80px;
-  position: relative;
-  img{
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    display: block;
-    margin: 0 auto;
-  }
-`
+  justify-content: center;
+  overflow: hidden scroll;
+`;
