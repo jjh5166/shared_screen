@@ -2,28 +2,36 @@ import { Component, createRef } from "react";
 import { DebounceInput } from 'react-debounce-input';
 
 import Suggestions from "../Suggestions";
-import { SearchContainer } from './styled'
+import { SearchContainer } from './styled';
 
+type SearchPersonProps = {
+  textInput: HTMLInputElement
+}
 type SearchPersonState = {
   isOpen: boolean;
   searchTerm: string;
   activeSuggestion: number,
 };
 
-class SearchPerson extends Component<{}, SearchPersonState>  {
+class SearchPerson extends Component<SearchPersonProps, SearchPersonState>  {
   state: SearchPersonState = {
     isOpen: true,
     searchTerm: "",
     activeSuggestion: 0,
   };
   private node = createRef<HTMLDivElement>();
+  private textInput = createRef<HTMLInputElement>();
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
     document.addEventListener('keydown', this.handleKeyDown);
+    this.focusTextInput();
   }
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
     document.removeEventListener('keydown', this.handleKeyDown);
+  }
+  focusTextInput = () => {
+    this.textInput.current!.focus();
   }
   handleClickOutside = (e: any) => {
     if (this.node.current && this.node.current.contains(e.target)) {
@@ -72,6 +80,7 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
     return (
       <SearchContainer ref={this.node}>
         <DebounceInput
+          inputRef={this.textInput}
           minLength={3}
           debounceTimeout={300}
           onChange={async (e) => {
