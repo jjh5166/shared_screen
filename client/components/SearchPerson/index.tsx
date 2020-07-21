@@ -1,33 +1,29 @@
-import { Component, createRef, Fragment } from "react";
-import { Query } from 'react-apollo';
+import { Component, createRef } from "react";
 import { DebounceInput } from 'react-debounce-input';
 
-import { searchPersonQuery } from "../../graphql/searchPerson";
 import Suggestions from "../Suggestions";
-import PeopleContainer from "../PeopleContainer";
-import Results from "../Results";
-import { SearchContainer, PplResultsSection } from './styled'
-import { SelectedProvider } from "../../context/selectedPeople";
-import { CreditsProvider } from "../../context/credits";
-import Compose from "../../utils/compose";
-import { SharedProvider } from "../../context/sharedCredits";
+import { SearchContainer } from './styled'
 
 type SearchPersonState = {
   isOpen: boolean;
-  searchTerm: string
+  searchTerm: string;
+  activeSuggestion: number,
 };
 
-class SearchPerson extends Component<SearchPersonState>  {
+class SearchPerson extends Component<{}, SearchPersonState>  {
   state: SearchPersonState = {
     isOpen: true,
-    searchTerm: ""
+    searchTerm: "",
+    activeSuggestion: 0,
   };
   private node = createRef<HTMLDivElement>();
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('keydown', this.handleKeyDown);
   }
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
   handleClickOutside = (e: any) => {
     if (this.node.current && this.node.current.contains(e.target)) {
@@ -45,44 +41,50 @@ class SearchPerson extends Component<SearchPersonState>  {
       searchTerm: e.target.value
     });
   }
-
+  handleSelection = () => {
+    this.setState({
+      searchTerm: ""
+    });
+  }
+  handleKeyDown = (e: any) => {
+    // User pressed the enter key, update the input and close the
+    // suggestions
+    if (e.keyCode === 13) {
+      console.log('enter')
+    }
+    else if (e.keyCode === 38) {
+      // if (activeSuggIndex === 0) {
+      //   return;
+      // }
+      // updateSuggIndex(activeSuggIndex - 1);
+      console.log('up')
+    }
+    else if (e.keyCode === 40) {
+      // if (activeSuggIndex - 1 === data.searchPerson.length) {
+      //   return;
+      // }
+      // updateSuggIndex(activeSuggIndex + 1);
+      console.log('down')
+    }
+  };
   render() {
     const { searchTerm, isOpen } = this.state;
     return (
-      <Compose components={[SharedProvider, CreditsProvider, SelectedProvider]}>
-        <SearchContainer ref={this.node}>
-          <DebounceInput
-            minLength={3}
-            debounceTimeout={300}
-            onChange={async (e) => {
-              this.handleChange(e);
-            }} />
-          {
-            !!searchTerm.length &&
-            <Query
-              query={searchPersonQuery}
-              variables={{ searchTerm: searchTerm }}
-            >
-              {({ data }: { data: any }) => {
-                return (
-                  <Fragment>
-                    {!!data &&
-                      !!data.searchPerson.length &&
-                      <Suggestions
-                        data={data.searchPerson}
-                        displayed={isOpen}
-                      />}
-                  </Fragment>
-                )
-              }}
-            </Query>
-          }
-        </SearchContainer>
-        <PplResultsSection>
-          <PeopleContainer />
-          <Results />
-        </PplResultsSection>
-      </Compose>
+      <SearchContainer ref={this.node}>
+        <DebounceInput
+          minLength={3}
+          debounceTimeout={300}
+          onChange={async (e) => {
+            this.handleChange(e);
+          }} />
+        {
+          !!searchTerm.length &&
+          <Suggestions
+            searchTerm={searchTerm}
+            displayed={isOpen}
+          />
+        }
+      </SearchContainer>
     )
   }
 }
