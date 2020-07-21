@@ -4,16 +4,13 @@ import { DebounceInput } from 'react-debounce-input';
 import Suggestions from "../Suggestions";
 import { SearchContainer } from './styled';
 
-type SearchPersonProps = {
-  textInput: HTMLInputElement
-}
 type SearchPersonState = {
   isOpen: boolean;
   searchTerm: string;
   activeSuggestion: number,
 };
 
-class SearchPerson extends Component<SearchPersonProps, SearchPersonState>  {
+class SearchPerson extends Component<{}, SearchPersonState>  {
   state: SearchPersonState = {
     isOpen: true,
     searchTerm: "",
