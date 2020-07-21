@@ -1,5 +1,5 @@
-import { useState, createContext, useEffect, useRef } from "react"
-import { useQuery } from "@apollo/react-hooks";
+import { Component, createRef, Fragment } from "react";
+import { Query } from 'react-apollo';
 import { DebounceInput } from 'react-debounce-input';
 
 import { searchPersonQuery } from "../../graphql/searchPerson";
@@ -12,53 +12,79 @@ import { CreditsProvider } from "../../context/credits";
 import Compose from "../../utils/compose";
 import { SharedProvider } from "../../context/sharedCredits";
 
-export const SearchContext = createContext<any>(null);
+type SearchPersonState = {
+  isOpen: boolean;
+  searchTerm: string
+};
 
-export default () => {
-  const [searchTerm, updateSearch] = useState("");
-  const { data } = useQuery(
-    searchPersonQuery,
-    { variables: { searchTerm: searchTerm } },
-  );
-  const node = useRef<HTMLDivElement>(null)
-  const [open, setOpen] = useState(true);
-  const handleClickOutside = (e: any) => {
-    if (node.current && node.current.contains(e.target)) {
-      setOpen(true);
+class SearchPerson extends Component<SearchPersonState>  {
+  state: SearchPersonState = {
+    isOpen: true,
+    searchTerm: ""
+  };
+  private node = createRef<HTMLDivElement>();
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+  handleClickOutside = (e: any) => {
+    if (this.node.current && this.node.current.contains(e.target)) {
+      this.setState({
+        isOpen: true
+      });
       return;
     }
-    setOpen(false);
+    this.setState({
+      isOpen: false
+    });
   };
+  handleChange = (e: any) => {
+    this.setState({
+      searchTerm: e.target.value
+    });
+  }
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [open]);
-  return (
-    <Compose components={[SharedProvider, CreditsProvider, SelectedProvider]}>
-      <SearchContainer ref={node}>
-        <DebounceInput
-          minLength={3}
-          debounceTimeout={300}
-          onChange={async (e) => {
-            updateSearch(e.target.value)
-          }} />
-        {
-          !!searchTerm.length &&
-          !!data &&
-          !!data.searchPerson.length &&
-          <Suggestions
-            data={data.searchPerson}
-            displayed={open}
-          />
-        }
-      </SearchContainer>
-      <PplResultsSection>
-        <PeopleContainer />
-        <Results />
-      </PplResultsSection>
-    </Compose>
-  )
+  render() {
+    const { searchTerm, isOpen } = this.state;
+    return (
+      <Compose components={[SharedProvider, CreditsProvider, SelectedProvider]}>
+        <SearchContainer ref={this.node}>
+          <DebounceInput
+            minLength={3}
+            debounceTimeout={300}
+            onChange={async (e) => {
+              this.handleChange(e);
+            }} />
+          {
+            !!searchTerm.length &&
+            <Query
+              query={searchPersonQuery}
+              variables={{ searchTerm: searchTerm }}
+            >
+              {({ data }: { data: any }) => {
+                return (
+                  <Fragment>
+                    {!!data &&
+                      !!data.searchPerson.length &&
+                      <Suggestions
+                        data={data.searchPerson}
+                        displayed={isOpen}
+                      />}
+                  </Fragment>
+                )
+              }}
+            </Query>
+          }
+        </SearchContainer>
+        <PplResultsSection>
+          <PeopleContainer />
+          <Results />
+        </PplResultsSection>
+      </Compose>
+    )
+  }
 }
+
+export default SearchPerson;
