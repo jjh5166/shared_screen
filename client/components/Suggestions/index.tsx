@@ -31,19 +31,18 @@ const SuggestedPerson = ({ person }: any) => {
     }).catch(err => console.log(err))
   }
   return (
-    <SuggCard>
+    <SuggCard
+      onClick={async () => {
+        if (!selectedPeople[person.id]) {
+          clickHandler(person);
+        }
+      }}>
       <ImgSpacer>
         <SuggImgContainer>
           <img src={faceImagePath(person.imagePath, 92)} />
         </SuggImgContainer>
       </ImgSpacer>
-      <SuggInfo
-        onClick={async () => {
-          if (!selectedPeople[person.id]) {
-            clickHandler(person);
-          }
-        }}
-      >
+      <SuggInfo>
         <NameC><span>{person.name}</span></NameC>
         <div>
           {person.knownAs && <span>{person.knownAs}, </span>}
