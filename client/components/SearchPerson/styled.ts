@@ -9,6 +9,7 @@ export const SearchContainer = styled.div`
   position: relative;
   align-items: center;
   input{
+    text-indent: 5px;
     width: 100%;
     border-radius: 30px;
     background: ${lighten(0.1, theme.background)};
