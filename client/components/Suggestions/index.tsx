@@ -1,12 +1,15 @@
 import { useApolloClient } from '@apollo/react-hooks';
 
-import { PersonData, SearchPersonResults, Film } from '../../interfaces';
+import { PersonData, Film } from '../../interfaces';
 import { faceImagePath } from '../../utils/faceImagePath';
 import { useSelectedDispatch, useSelectedState } from '../../context/selectedPeople';
 import { fetchCreditsQuery } from '../../graphql/fetchCredits';
 import { useCreditsDispatch } from '../../context/credits';
 import { SuggContainer, SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC } from './styled';
 import { useSharedDispatch } from '../../context/sharedCredits';
+import { Query } from 'react-apollo';
+import { searchPersonQuery } from '../../graphql/searchPerson';
+import { Fragment } from 'react';
 
 const SuggestedPerson = ({ person }: any) => {
   const selectedDispatch = useSelectedDispatch();
@@ -31,19 +34,18 @@ const SuggestedPerson = ({ person }: any) => {
     }).catch(err => console.log(err))
   }
   return (
-    <SuggCard>
+    <SuggCard
+      onClick={async () => {
+        if (!selectedPeople[person.id]) {
+          clickHandler(person);
+        }
+      }}>
       <ImgSpacer>
         <SuggImgContainer>
           <img src={faceImagePath(person.imagePath, 92)} />
         </SuggImgContainer>
       </ImgSpacer>
-      <SuggInfo
-        onClick={async () => {
-          if (!selectedPeople[person.id]) {
-            clickHandler(person);
-          }
-        }}
-      >
+      <SuggInfo>
         <NameC><span>{person.name}</span></NameC>
         <div>
           {person.knownAs && <span>{person.knownAs}, </span>}
@@ -55,16 +57,27 @@ const SuggestedPerson = ({ person }: any) => {
     </SuggCard>
   )
 }
-type SuggestionsProps = SearchPersonResults & { displayed: boolean }
+type SuggestionsProps = { searchTerm: string, displayed: boolean }
 
-export default ({ data, displayed }: SuggestionsProps) => {
-  return (
-    <SuggContainer displayed={displayed}>
-      {
-        data.map((person: PersonData) => {
-          return <SuggestedPerson key={person.id} person={person} />
-        })
-      }
-    </SuggContainer>
-  )
-}
+export default ({ searchTerm, displayed }: SuggestionsProps) => (
+  <Query
+    query={searchPersonQuery}
+    variables={{ searchTerm: searchTerm }}
+  >
+    {({ data }: { data: any }) => {
+      return (
+        <Fragment>
+          {!!data &&
+            !!data.searchPerson.length &&
+            <SuggContainer displayed={displayed}>
+              {
+                data.searchPerson.map((person: PersonData) => {
+                  return <SuggestedPerson key={person.id} person={person} />
+                })
+              }
+            </SuggContainer>}
+        </Fragment>
+      )
+    }}
+  </Query>
+)

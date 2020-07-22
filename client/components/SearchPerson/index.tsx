@@ -1,64 +1,98 @@
-import { useState, createContext, useEffect, useRef } from "react"
-import { useQuery } from "@apollo/react-hooks";
+import { Component, createRef } from "react";
 import { DebounceInput } from 'react-debounce-input';
 
-import { searchPersonQuery } from "../../graphql/searchPerson";
 import Suggestions from "../Suggestions";
-import PeopleContainer from "../PeopleContainer";
-import Results from "../Results";
-import { SearchContainer, PplResultsSection } from './styled'
-import { SelectedProvider } from "../../context/selectedPeople";
-import { CreditsProvider } from "../../context/credits";
-import Compose from "../../utils/compose";
-import { SharedProvider } from "../../context/sharedCredits";
+import { SearchContainer } from './styled';
 
-export const SearchContext = createContext<any>(null);
+type SearchPersonState = {
+  isOpen: boolean;
+  searchTerm: string;
+  activeSuggestion: number,
+};
 
-export default () => {
-  const [searchTerm, updateSearch] = useState("");
-  const { data } = useQuery(
-    searchPersonQuery,
-    { variables: { searchTerm: searchTerm } },
-  );
-  const node = useRef<HTMLDivElement>(null)
-  const [open, setOpen] = useState(true);
-  const handleClickOutside = (e: any) => {
-    if (node.current && node.current.contains(e.target)) {
-      setOpen(true);
+class SearchPerson extends Component<{}, SearchPersonState>  {
+  state: SearchPersonState = {
+    isOpen: true,
+    searchTerm: "",
+    activeSuggestion: 0,
+  };
+  private node = createRef<HTMLDivElement>();
+  private textInput = createRef<HTMLInputElement>();
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener('keydown', this.handleKeyDown);
+    this.focusTextInput();
+  }
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener('keydown', this.handleKeyDown);
+  }
+  focusTextInput = () => {
+    this.textInput.current!.focus();
+  }
+  handleClickOutside = (e: any) => {
+    if (this.node.current && this.node.current.contains(e.target)) {
+      this.setState({
+        isOpen: true
+      });
       return;
     }
-    setOpen(false);
+    this.setState({
+      isOpen: false
+    });
   };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [open]);
-  return (
-    <Compose components={[SharedProvider, CreditsProvider, SelectedProvider]}>
-      <SearchContainer ref={node}>
+  handleChange = (e: any) => {
+    this.setState({
+      searchTerm: e.target.value
+    });
+  }
+  handleSelection = () => {
+    this.setState({
+      searchTerm: ""
+    });
+  }
+  handleKeyDown = (e: any) => {
+    // User pressed the enter key, update the input and close the
+    // suggestions
+    if (e.keyCode === 13) {
+      console.log('enter')
+    }
+    else if (e.keyCode === 38) {
+      // if (activeSuggIndex === 0) {
+      //   return;
+      // }
+      // updateSuggIndex(activeSuggIndex - 1);
+      console.log('up')
+    }
+    else if (e.keyCode === 40) {
+      // if (activeSuggIndex - 1 === data.searchPerson.length) {
+      //   return;
+      // }
+      // updateSuggIndex(activeSuggIndex + 1);
+      console.log('down')
+    }
+  };
+  render() {
+    const { searchTerm, isOpen } = this.state;
+    return (
+      <SearchContainer ref={this.node}>
         <DebounceInput
+          inputRef={this.textInput}
           minLength={3}
           debounceTimeout={300}
           onChange={async (e) => {
-            updateSearch(e.target.value)
+            this.handleChange(e);
           }} />
         {
           !!searchTerm.length &&
-          !!data &&
-          !!data.searchPerson.length &&
           <Suggestions
-            data={data.searchPerson}
-            displayed={open}
+            searchTerm={searchTerm}
+            displayed={isOpen}
           />
         }
       </SearchContainer>
-      <PplResultsSection>
-        <PeopleContainer />
-        <Results />
-      </PplResultsSection>
-    </Compose>
-  )
+    )
+  }
 }
+
+export default SearchPerson;
