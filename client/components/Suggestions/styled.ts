@@ -3,7 +3,7 @@ import { lighten } from "polished";
 
 import { theme } from '../../constants';
 
-export const SuggContainer = styled.div<{ displayed: boolean }>`
+export const SuggContainer = styled.ul<{ displayed: boolean }>`
   width: 100%;
   position: absolute;
   margin-top: 26px;
@@ -15,6 +15,7 @@ export const SuggContainer = styled.div<{ displayed: boolean }>`
   display: ${props => props.displayed ? 'block' : 'none'};
   background: ${lighten(0.1, theme.background)};
   z-index: 2;
+  padding: 0;
 `
 export const ImgSpacer = styled.div`
   display: flex;
@@ -33,7 +34,7 @@ export const SuggImgContainer = styled.div`
     margin: 0 auto;
   }
 `
-export const SuggCard = styled.div`
+export const SuggCard = styled.li<{ tabIndex: any }>`
   flex:1;
   display: flex;
   padding: 5px;

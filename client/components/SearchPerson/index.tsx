@@ -20,12 +20,10 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
   private textInput = createRef<HTMLInputElement>();
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
-    document.addEventListener('keydown', this.handleKeyDown);
     this.focusTextInput();
   }
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
-    document.removeEventListener('keydown', this.handleKeyDown);
   }
   focusTextInput = () => {
     this.textInput.current!.focus();
@@ -43,7 +41,8 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
   };
   handleChange = (e: any) => {
     this.setState({
-      searchTerm: e.target.value
+      searchTerm: e.target.value,
+      isOpen: true
     });
   }
   handleSelection = () => {
@@ -51,27 +50,7 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
       searchTerm: ""
     });
   }
-  handleKeyDown = (e: any) => {
-    // User pressed the enter key, update the input and close the
-    // suggestions
-    if (e.keyCode === 13) {
-      console.log('enter')
-    }
-    else if (e.keyCode === 38) {
-      // if (activeSuggIndex === 0) {
-      //   return;
-      // }
-      // updateSuggIndex(activeSuggIndex - 1);
-      console.log('up')
-    }
-    else if (e.keyCode === 40) {
-      // if (activeSuggIndex - 1 === data.searchPerson.length) {
-      //   return;
-      // }
-      // updateSuggIndex(activeSuggIndex + 1);
-      console.log('down')
-    }
-  };
+
   render() {
     const { searchTerm, isOpen } = this.state;
     return (
