@@ -11,7 +11,7 @@ type SuggestionsProps = { searchTerm: string, displayed: boolean };
 export default ({ searchTerm, displayed }: SuggestionsProps) => {
 
   const onKeyDown = (e: any) => {
-    if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+    if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
       e.preventDefault();
     }
     let active = document.activeElement as HTMLElement;
