@@ -1,7 +1,8 @@
-import { createContext, useContext, useReducer, ReactNode } from 'react';
+import { createContext, useReducer, ReactNode } from 'react';
 
 import removeProperty from '../../utils/removeProperty';
 import { parseCreditInfo } from '../../utils/parseCreditInfo';
+import createUseContext from '../../utils/createUseContext';
 
 const CreditsStateContext = createContext<any>(null);
 const CreditsDispatchContext = createContext<any>(null);
@@ -32,20 +33,8 @@ function CreditsProvider({ children }: { children: ReactNode }) {
   )
 }
 
-function useCreditsState() {
-  const creditsState = useContext(CreditsStateContext)
-  if (typeof creditsState === undefined) {
-    throw new Error('useCreditsState must be used within a CreditsProvider')
-  }
-  return creditsState
-}
+const useCreditsState = createUseContext("Credits", "State", CreditsStateContext);
 
-function useCreditsDispatch() {
-  const creditsDispatch = useContext(CreditsDispatchContext)
-  if (typeof creditsDispatch === undefined) {
-    throw new Error('creditsDispatch must be used within a CreditsProvider')
-  }
-  return creditsDispatch
-}
+const useCreditsDispatch = createUseContext("Credits", "Dispatch", CreditsDispatchContext);
 
 export { CreditsProvider, useCreditsState, useCreditsDispatch };

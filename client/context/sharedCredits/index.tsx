@@ -1,6 +1,7 @@
-import { createContext, useContext, useReducer, ReactNode } from 'react';
+import { createContext, useReducer, ReactNode } from 'react';
 
 import removeProperty from '../../utils/removeProperty';
+import createUseContext from '../../utils/createUseContext';
 
 const SharedStateContext = createContext<any>(null);
 const SharedDispatchContext = createContext<any>(null);
@@ -69,20 +70,8 @@ function SharedProvider({ children }: { children: ReactNode }) {
   )
 }
 
-function useSharedState() {
-  const sharedState = useContext(SharedStateContext)
-  if (typeof sharedState === undefined) {
-    throw new Error('useSelectedState must be used within a SelectedProvider')
-  }
-  return sharedState
-}
+const useSharedState = createUseContext("Shared", "State", SharedStateContext);
 
-function useSharedDispatch() {
-  const sharedDispatch = useContext(SharedDispatchContext)
-  if (typeof sharedDispatch === undefined) {
-    throw new Error('sharedDispatch must be used within a SelectedProvider')
-  }
-  return sharedDispatch
-}
+const useSharedDispatch = createUseContext("Shared", "Dispatch", SharedDispatchContext);
 
 export { SharedProvider, useSharedState, useSharedDispatch };

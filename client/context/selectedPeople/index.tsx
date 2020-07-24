@@ -1,7 +1,8 @@
-import { createContext, useContext, useReducer, ReactNode } from 'react';
+import { createContext, useReducer, ReactNode } from 'react';
 
 import { PersonData } from '../../interfaces';
 import removeProperty from '../../utils/removeProperty';
+import createUseContext from '../../utils/createUseContext';
 
 const SelectedStateContext = createContext<any>(null);
 const SelectedDispatchContext = createContext<any>(null);
@@ -32,20 +33,8 @@ function SelectedProvider({ children }: { children: ReactNode }) {
   )
 }
 
-function useSelectedState() {
-  const selectedState = useContext(SelectedStateContext)
-  if (typeof selectedState === undefined) {
-    throw new Error('useSelectedState must be used within a SelectedProvider')
-  }
-  return selectedState
-}
+const useSelectedState = createUseContext("Selected", "State", SelectedStateContext);
 
-function useSelectedDispatch() {
-  const selectedDispatch = useContext(SelectedDispatchContext)
-  if (typeof selectedDispatch === undefined) {
-    throw new Error('selectedDispatch must be used within a SelectedProvider')
-  }
-  return selectedDispatch
-}
+const useSelectedDispatch = createUseContext("Selected", "Dispatch", SelectedDispatchContext);
 
 export { SelectedProvider, useSelectedState, useSelectedDispatch };
