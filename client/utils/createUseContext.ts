@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-export default function (name: string, type: string, context: any) {
+export default function (name: string, type: string, context: any): any {
   let fnName = `use${name}${type}`;
   return (
     function () {

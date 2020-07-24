@@ -3,18 +3,17 @@ import { DebounceInput } from 'react-debounce-input';
 
 import Suggestions from "../Suggestions";
 import { SearchContainer } from './styled';
+import { SearchContext } from "../../context/search";
 
 type SearchPersonState = {
   isOpen: boolean;
   searchTerm: string;
-  activeSuggestion: number,
 };
 
 class SearchPerson extends Component<{}, SearchPersonState>  {
   state: SearchPersonState = {
-    isOpen: true,
+    isOpen: false,
     searchTerm: "",
-    activeSuggestion: 0,
   };
   private node = createRef<HTMLDivElement>();
   private textInput = createRef<HTMLInputElement>();
@@ -47,28 +46,40 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
   }
   handleSelection = () => {
     this.setState({
-      searchTerm: ""
+      searchTerm: "",
+      isOpen: false
+    });
+  }
+  hideSuggestions = () => {
+    this.setState({
+      isOpen: false
     });
   }
 
   render() {
     const { searchTerm, isOpen } = this.state;
+    const { handleSelection, hideSuggestions } = this
     return (
       <SearchContainer ref={this.node}>
-        <DebounceInput
-          inputRef={this.textInput}
-          minLength={3}
-          debounceTimeout={300}
-          onChange={async (e) => {
-            this.handleChange(e);
-          }} />
-        {
-          !!searchTerm.length &&
-          <Suggestions
-            searchTerm={searchTerm}
-            displayed={isOpen}
-          />
-        }
+        <SearchContext.Provider value={{
+          isOpen,
+          searchTerm,
+          hideSuggestions,
+          handleSelection,
+        }}>
+          <DebounceInput
+            inputRef={this.textInput}
+            minLength={3}
+            debounceTimeout={300}
+            value={this.state.searchTerm}
+            onChange={async (e) => {
+              this.handleChange(e);
+            }} />
+          {
+            !!searchTerm.length &&
+            <Suggestions />
+          }
+        </SearchContext.Provider>
       </SearchContainer>
     )
   }
