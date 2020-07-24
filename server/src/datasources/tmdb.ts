@@ -18,8 +18,8 @@ export default class MovieAPI extends RESTDataSource {
   filmReducer(film: any) {
     return {
       id: film.id,
-      title: film.title,
-      releaseDate: film.release_date,
+      title: film.title || film.name,
+      releaseDate: film.release_date || film.first_air_date,
       posterPath: film.poster_path,
       overview: film.overview
     }
