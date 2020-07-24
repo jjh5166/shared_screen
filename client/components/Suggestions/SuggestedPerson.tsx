@@ -9,7 +9,7 @@ import { fetchCreditsQuery } from '../../graphql/fetchCredits';
 import { useCreditsDispatch } from '../../context/credits';
 import { useSearchContext } from '../../context/search';
 
-const SuggestedPerson = ({ person }: any) => {
+const SuggestedPerson = ({ person }: { person: PersonData }) => {
   const selectedDispatch = useSelectedDispatch();
   const client = useApolloClient();
   const creditsDispatch = useCreditsDispatch();
