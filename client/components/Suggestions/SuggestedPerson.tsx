@@ -7,6 +7,7 @@ import { useSelectedDispatch, useSelectedState } from '../../context/selectedPeo
 import { useSharedDispatch } from '../../context/sharedCredits';
 import { fetchCreditsQuery } from '../../graphql/fetchCredits';
 import { useCreditsDispatch } from '../../context/credits';
+import { useSearchContext } from '../../context/search';
 
 const SuggestedPerson = ({ person }: any) => {
   const selectedDispatch = useSelectedDispatch();
@@ -14,6 +15,7 @@ const SuggestedPerson = ({ person }: any) => {
   const creditsDispatch = useCreditsDispatch();
   const sharedDispatch = useSharedDispatch();
   const selectedPeople = useSelectedState();
+  const { handleSelection } = useSearchContext();
   const clickHandler = async (person: PersonData) => {
     await selectedDispatch({ type: 'ADD', payload: person })
     await client.query({
@@ -36,6 +38,7 @@ const SuggestedPerson = ({ person }: any) => {
       onClick={async () => {
         if (!selectedPeople[person.id]) {
           clickHandler(person);
+          handleSelection();
         }
       }}>
       <ImgSpacer>

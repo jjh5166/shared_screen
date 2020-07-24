@@ -5,10 +5,12 @@ import { PersonData } from '../../interfaces';
 import { SuggContainer } from './styled';
 import { searchPersonQuery } from '../../graphql/searchPerson';
 import SuggestedPerson from './SuggestedPerson';
+import { useSearchContext } from '../../context/search';
 
-type SuggestionsProps = { searchTerm: string, displayed: boolean };
+type SuggestionsProps = { displayed: boolean };
 
-export default ({ searchTerm, displayed }: SuggestionsProps) => {
+export default ({ displayed }: SuggestionsProps) => {
+  const { searchTerm }: any = useSearchContext();
 
   const onKeyDown = (e: any) => {
     if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
