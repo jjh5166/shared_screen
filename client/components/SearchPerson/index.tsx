@@ -50,15 +50,22 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
       isOpen: false
     });
   }
+  hideSuggestions = () => {
+    this.setState({
+      isOpen: false
+    });
+  }
 
   render() {
     const { searchTerm, isOpen } = this.state;
-    const { handleSelection } = this
+    const { handleSelection, hideSuggestions } = this
     return (
       <SearchContainer ref={this.node}>
         <SearchContext.Provider value={{
+          isOpen,
           searchTerm,
-          handleSelection
+          hideSuggestions,
+          handleSelection,
         }}>
           <DebounceInput
             inputRef={this.textInput}
@@ -70,9 +77,7 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
             }} />
           {
             !!searchTerm.length &&
-            <Suggestions
-              displayed={isOpen}
-            />
+            <Suggestions />
           }
         </SearchContext.Provider>
       </SearchContainer>
