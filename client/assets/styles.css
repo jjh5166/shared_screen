@@ -3,6 +3,10 @@
   font-family: 'Catamaran', sans-serif;
   color: #fff;
 }
+@font-face {
+  font-family: 'Brandy';
+  src: url('../public/Brandy.ttf') format('truetype');
+}
 /* imgs to require containers for responsive design */
 img {
   width: 100%;
