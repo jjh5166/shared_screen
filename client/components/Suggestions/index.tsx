@@ -11,7 +11,7 @@ export default () => {
   const { searchTerm, isOpen, hideSuggestions }: SearchContextValues = useSearchContext();
 
   const onKeyDown = (e: any) => {
-    if ([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+    if ([38, 40].indexOf(e.keyCode) > -1) {
       e.preventDefault();
     }
     let active = document.activeElement as HTMLElement;
