@@ -7,13 +7,14 @@ type ItemCardProps = {
   name: string,
   imgPath: string,
   removeFn?: any
+  clickHandler?: any
 };
 
 export function ItemCard(
-  { id, name, imgPath, removeFn = null }: ItemCardProps) {
+  { id, name, imgPath, removeFn = null, clickHandler }: ItemCardProps) {
 
   return (
-    <CardContainer>
+    <CardContainer onClick={clickHandler}>
       <img src={imgPath} />
       <CardOverlay text={name}>
         {removeFn &&
