@@ -1,6 +1,6 @@
 import { useApolloClient } from '@apollo/react-hooks';
 
-import { PersonData, Film } from '../../interfaces';
+import { Person, Film } from '../../interfaces';
 import { SuggCard, ImgSpacer, SuggImgContainer, SuggInfo, NameC } from './styled';
 import { faceImagePath } from '../../utils/faceImagePath';
 import { useSelectedDispatch, useSelectedState } from '../../context/selectedPeople';
@@ -9,14 +9,14 @@ import { fetchCreditsQuery } from '../../graphql/fetchCredits';
 import { useCreditsDispatch } from '../../context/credits';
 import { useSearchContext } from '../../context/search';
 
-const SuggestedPerson = ({ person }: { person: PersonData }) => {
+const SuggestedPerson = ({ person }: { person: Person }) => {
   const selectedDispatch = useSelectedDispatch();
   const client = useApolloClient();
   const creditsDispatch = useCreditsDispatch();
   const sharedDispatch = useSharedDispatch();
   const selectedPeople = useSelectedState();
   const { handleSelection } = useSearchContext();
-  const clickHandler = async (person: PersonData) => {
+  const clickHandler = async (person: Person) => {
     await selectedDispatch({ type: 'ADD', payload: person })
     await client.query({
       query: fetchCreditsQuery,
