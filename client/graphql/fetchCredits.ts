@@ -7,6 +7,7 @@ export const fetchCreditsQuery = gql`
 	    credits{
         id
         info{
+          id
           title
           posterPath
           releaseDate
