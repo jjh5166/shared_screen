@@ -1,13 +1,14 @@
 import { createContext, ReactNode, useReducer } from 'react';
 
 import createUseContext from '../../utils/createUseContext';
+import { Film, Person } from '../../interfaces';
 
 const ModalStateContext = createContext<any>(null);
 const ModalUpdateContext = createContext<any>(null);
 
 type ModalState = {
   isOpen: boolean,
-  content: any[], //films or people
+  content: (Person | Film)[],
   cursor: number
 };
 
