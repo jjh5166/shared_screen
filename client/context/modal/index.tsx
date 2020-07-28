@@ -7,33 +7,35 @@ const ModalUpdateContext = createContext<any>(null);
 
 type ModalState = {
   isOpen: boolean,
-  content: any[] //films or people
+  content: any[], //films or people
+  cursor: number
 };
 
 type ModalAction =
-  | { type: "OPEN"; payload: { content: any } }
+  | { type: "OPEN"; payload: { content: any, cursor: number } }
   | { type: "CLOSE" };
+
+const modalInitial = {
+  isOpen: false,
+  content: [],
+  cursor: 0
+}
 
 function modalReducer(state: ModalState, action: ModalAction): ModalState {
   switch (action.type) {
     case 'OPEN':
       return {
         isOpen: true,
-        content: action.payload.content
+        content: action.payload.content,
+        cursor: action.payload.cursor
       }
     case 'CLOSE':
-      return {
-        isOpen: false,
-        content: []
-      }
+      return modalInitial
     default:
       return state;
   }
 }
-const modalInitial = {
-  isOpen: false,
-  content: []
-}
+
 function ModalProvider({ children }: { children: ReactNode }) {
   const [content, contentDispatch] = useReducer(modalReducer, modalInitial)
   return (
