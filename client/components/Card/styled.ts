@@ -19,6 +19,7 @@ justify-content: center;
 `
 
 export const CardOverlay = styled.div<{ text: string }>`
+  color: black;
   position: absolute;
   top: 0;
   left: 0;

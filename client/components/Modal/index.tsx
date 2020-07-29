@@ -3,7 +3,7 @@
 import { ModalContainer, ModalX, ModalContent, ScrollArrow } from "./styled";
 
 import { useModalState, useModalDispatch } from "../../context/modal";
-import OverlayItem from "../OverlayItem";
+import ModalItem from "../ModalItem";
 
 const Modal = () => {
   const { isOpen, content, cursor } = useModalState();
@@ -19,7 +19,7 @@ const Modal = () => {
       <ModalContent>
         {
           !!content &&
-          <OverlayItem film={content[cursor]} />
+          <ModalItem film={content[cursor]} />
         }
       </ModalContent>
       <ScrollArrow direction="right" onClick={(e) => {
