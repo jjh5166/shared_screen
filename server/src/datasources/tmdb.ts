@@ -1,5 +1,6 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
-import CreditsObj from '../entity/CreditsObj';
+
+import CreditsObj, { SingleCredit } from '../entity/CreditsObj';
 
 const knownAsMap: Record<string, string | object> = {
   Acting: "Actor",
@@ -44,18 +45,28 @@ export default class MovieAPI extends RESTDataSource {
 
   async fetchCredits(personId: number) {
     const res = await this.get(`/3/person/${personId}/movie_credits`);
-    const filmIds: Array<number> = [];
-    const credits: Array<any> = [];
+    const wroteOrDirected = ["Writing", "Directing"];
+    const filmIds = new Set<number>();
+    const credits = new Set<SingleCredit>();
 
     if (Array.isArray(res.cast)) {
       res.cast.forEach((cred: any) => {
-        filmIds.push(cred.id);
-        credits.push({ id: cred.id, info: this.filmReducer(cred) })
+        filmIds.add(cred.id);
+        credits.add({ id: cred.id, info: this.filmReducer(cred) })
       })
     }
+    if (Array.isArray(res.crew)) {
+      res.crew.forEach((cred: any) => {
+        if (wroteOrDirected.includes(cred.department)) {
+          filmIds.add(cred.id);
+          credits.add({ id: cred.id, info: this.filmReducer(cred) })
+        }
+      })
+    }
+
     const creditsObj: CreditsObj = {
-      filmIds: filmIds,
-      credits: credits
+      filmIds: Array.from(filmIds),
+      credits: Array.from(credits)
     }
     return creditsObj;
   }
