@@ -1,11 +1,11 @@
 import { faceImagePath } from "../../utils/faceImagePath";
-import { PersonData } from "../../interfaces";
+import { Person } from "../../interfaces";
 import { useSelectedDispatch } from "../../context/selectedPeople";
 import { useCreditsDispatch } from "../../context/credits";
 import { useSharedDispatch } from "../../context/sharedCredits";
 import { ItemCard } from "../Card";
 
-const PersonCard = ({ person }: { person: PersonData }) => {
+const PersonCard = ({ person }: { person: Person }) => {
   const selectedDispatch = useSelectedDispatch();
   const creditsDispatch = useCreditsDispatch();
   const sharedDispatch = useSharedDispatch();

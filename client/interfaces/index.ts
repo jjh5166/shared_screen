@@ -1,4 +1,4 @@
-export type PersonData = {
+export type Person = {
   id: number
   name: string
   imagePath: string
@@ -7,7 +7,7 @@ export type PersonData = {
 }
 
 export type SearchPersonResults = {
-  data: PersonData[];
+  data: Person[];
 }
 
 export type Film = {

@@ -1,7 +1,7 @@
 import { Fragment, useEffect } from 'react';
 import { Query } from 'react-apollo';
 
-import { PersonData } from '../../interfaces';
+import { Person } from '../../interfaces';
 import { SuggContainer } from './styled';
 import { searchPersonQuery } from '../../graphql/searchPerson';
 import SuggestedPerson from './SuggestedPerson';
@@ -52,7 +52,7 @@ export default () => {
               !!data.searchPerson.length &&
               <SuggContainer displayed={isOpen}>
                 {
-                  data.searchPerson.map((person: PersonData) => {
+                  data.searchPerson.map((person: Person) => {
                     return <SuggestedPerson key={person.id} person={person} />
                   })
                 }

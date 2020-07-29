@@ -1,17 +1,31 @@
-import { useState } from "react";
 
-import { ModalContainer, ModalX, ModalContent } from "./styled";
+
+import { ModalContainer, ModalX, ModalContent, ScrollArrow } from "./styled";
+
+import { useModalState, useModalDispatch } from "../../context/modal";
 import OverlayItem from "../OverlayItem";
-import { Film } from "../../interfaces";
 
 const Modal = () => {
-  const [displayed, setDisplayed] = useState(false);
+  const { isOpen, content, cursor } = useModalState();
+  const modalDispatch = useModalDispatch();
+  if (!isOpen) { return null };
   return (
-    <ModalContainer displayed={displayed}>
-      <ModalX onClick={() => { setDisplayed(false) }} />
+    <ModalContainer displayed={isOpen} onClick={() => { modalDispatch({ type: "CLOSE" }) }}>
+      <ModalX onClick={() => { modalDispatch({ type: "CLOSE" }) }} />
+      <ScrollArrow direction="left" onClick={(e) => {
+        e.stopPropagation();
+        modalDispatch({ type: "SCROLL_LEFT" })
+      }} />
       <ModalContent>
-        {(film: Film) => <OverlayItem film={film} />}
+        {
+          !!content &&
+          <OverlayItem film={content[cursor]} />
+        }
       </ModalContent>
+      <ScrollArrow direction="right" onClick={(e) => {
+        e.stopPropagation();
+        modalDispatch({ type: "SCROLL_RIGHT" })
+      }} />
     </ModalContainer>
   )
 }

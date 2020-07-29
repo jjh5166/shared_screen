@@ -1,6 +1,6 @@
 import { createContext, useReducer, ReactNode } from 'react';
 
-import { PersonData } from '../../interfaces';
+import { Person } from '../../interfaces';
 import removeProperty from '../../utils/removeProperty';
 import createUseContext from '../../utils/createUseContext';
 
@@ -8,7 +8,7 @@ const SelectedStateContext = createContext<any>(null);
 const SelectedDispatchContext = createContext<any>(null);
 
 type SelectedAction =
-  | { type: "ADD"; payload: PersonData }
+  | { type: "ADD"; payload: Person }
   | { type: "REMOVE"; payload: string };
 
 function selectedReducer(state: {}, action: SelectedAction): {} {

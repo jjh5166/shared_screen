@@ -8,18 +8,23 @@ import { CreditsProvider } from '../context/credits';
 import { SelectedProvider } from '../context/selectedPeople';
 import Compose from '../utils/compose';
 import Title from '../components/Title';
+import Modal from '../components/Modal';
+import { ModalProvider } from '../context/modal';
 
 export default () => {
   return (
-    <Layout>
-      <Title />
-      <Compose components={[SharedProvider, CreditsProvider, SelectedProvider]}>
-        <SearchPerson />
-        <PplResultsSection>
-          <PeopleContainer />
-          <Results />
-        </PplResultsSection>
-      </Compose>
-    </Layout>
+    <ModalProvider>
+      <Layout>
+        <Title />
+        <Compose components={[SharedProvider, CreditsProvider, SelectedProvider]}>
+          <SearchPerson />
+          <PplResultsSection>
+            <PeopleContainer />
+            <Results />
+          </PplResultsSection>
+        </Compose>
+      </Layout>
+      <Modal />
+    </ModalProvider>
   )
 }
