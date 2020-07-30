@@ -4,6 +4,7 @@ import { theme, device } from "../../constants";
 
 export const TitleContainer = styled.div`
   h1{
+    margin: 0;
     font-family: 'Brandy';
     font-size: 2.5em;
     color: ${theme.bravo};
@@ -16,7 +17,11 @@ export const TitleContainer = styled.div`
     1.5px 1.5px 0 ${darken(0.2, theme.charlie)},
     -3px -2px 0 ${theme.alpha},
     -3px -3px 0 ${theme.alpha};
-    @media ${device.tablet} { 
+    @media (orientation: landscape) {
+      margin: auto;
+    }
+    @media ${device.tablet} {
+      margin: auto;
       font-size: 5em;
     }
     @media ${device.laptop} { 
