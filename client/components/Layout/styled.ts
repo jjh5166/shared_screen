@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { theme } from '../../constants';
 
 export const LayoutContainer = styled.div`
+  overflow: hidden;
   height: 100vh;
   width: 100%;
   display: grid;
