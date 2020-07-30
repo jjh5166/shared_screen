@@ -1,7 +1,6 @@
 import React, { createContext, useContext } from 'react';
 
-import { ResContainer } from "./styled";
-import { ItemCard } from '../Card';
+import { ResContainer, FilmCardContainer } from "./styled";
 import { useSharedState } from '../../context/sharedCredits';
 import { useCreditsState } from '../../context/credits';
 import { posterImagePath } from '../../utils/posterImagePath';
@@ -14,7 +13,7 @@ const FilmCard = ({ film, itemIndex }: { film: Film, itemIndex: number }) => {
   const modalDispatch = useModalDispatch();
   const modalContent = useContext(ResultsContext)
   return (
-    <ItemCard
+    <FilmCardContainer
       name={film.title}
       imgPath={posterImagePath(film.posterPath, 185)}
       clickHandler={() => { modalDispatch({ type: "OPEN", payload: { content: modalContent, cursor: itemIndex } }) }}
