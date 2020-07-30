@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { transparentize } from 'polished';
 
-import { theme } from '../../constants';
+import { theme, device } from "../../constants";
 
 export const CloseX = styled.div`
 position: absolute;
@@ -33,13 +33,17 @@ export const CardOverlay = styled.div<{ text: string }>`
   }
 `
 export const CardContainer = styled.div`
+  flex: 0 0 auto;
   cursor: pointer;
   display: flex;
   height: 110px;
   width: 73px;
   position: relative;
-  margin: 5px;
+  margin: 0 5px;
   color: ${theme.charlie};
+  @media ${device.tablet}, (orientation: landscape) { 
+    margin: 5px;
+  }
   &:hover{
     ${CardOverlay}{
       display: flex;
