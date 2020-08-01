@@ -4,7 +4,6 @@ import { ResContainer } from "./styled";
 import { ItemCard } from '../Card';
 import { useSharedState } from '../../context/sharedCredits';
 import { useCreditsState } from '../../context/credits';
-import { posterImagePath } from '../../utils/posterImagePath';
 import { Film } from '../../interfaces';
 import { useModalDispatch } from '../../context/modal';
 
@@ -15,8 +14,8 @@ const FilmCard = ({ film, itemIndex }: { film: Film, itemIndex: number }) => {
   const modalContent = useContext(ResultsContext)
   return (
     <ItemCard
-      name={film.title}
-      imgPath={posterImagePath(film.posterPath, 185)}
+      type={"Film"}
+      content={film}
       clickHandler={() => { modalDispatch({ type: "OPEN", payload: { content: modalContent, cursor: itemIndex } }) }}
     />
   );
