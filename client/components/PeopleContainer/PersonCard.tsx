@@ -1,4 +1,3 @@
-import { faceImagePath } from "../../utils/faceImagePath";
 import { Person } from "../../interfaces";
 import { useSelectedDispatch } from "../../context/selectedPeople";
 import { useCreditsDispatch } from "../../context/credits";
@@ -16,9 +15,8 @@ const PersonCard = ({ person }: { person: Person }) => {
   }
   return (
     <ItemCard
-      id={person.id}
-      name={person.name}
-      imgPath={faceImagePath(person.imagePath, 185)}
+      type={"Person"}
+      content={person}
       removeFn={clickHandler}
     />
   )

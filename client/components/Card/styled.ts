@@ -17,20 +17,26 @@ justify-content: center;
   content: "X"
 }
 `
-
-export const CardOverlay = styled.div<{ text: string }>`
-  color: black;
+const CardOverlayBase = styled.div<{ text: string }>`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: none;
-  background-color: ${transparentize(.5, theme.alpha)};
   &::after{
     content: "${props => props.text}";
     text-align: center;
   }
+`
+export const HoverOverlay = styled(CardOverlayBase)`
+  color: black;
+  display: none;
+  background-color: ${transparentize(.5, theme.alpha)};
+`
+export const NoImageOverlay = styled(CardOverlayBase)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 export const CardContainer = styled.div`
   flex: 0 0 auto;
@@ -45,10 +51,13 @@ export const CardContainer = styled.div`
     margin: 5px;
   }
   &:hover{
-    ${CardOverlay}{
+    ${HoverOverlay}{
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+    ${NoImageOverlay}{
+      display: none;
     }
     outline: solid ${theme.bravo} 2px;
     ${CloseX} {
