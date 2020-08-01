@@ -12,8 +12,13 @@ export const ResContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   overflow: hidden scroll;
-  @media ${device.tablet}, (orientation: landscape) { 
+  @media (orientation: landscape) {
+    width: 45%;
     max-height: 75%;
+  }
+  @media ${device.laptop}{
+    height: 355px;
+    max-height: unset;
     width: 45%;
   }
   ${CardContainer}{

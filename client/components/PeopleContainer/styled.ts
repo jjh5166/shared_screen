@@ -8,13 +8,17 @@ export const PplContainer = styled.div`
   width: 80%;
   padding: 10px;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   flex-wrap: nowrap;
   overflow-x: auto;
-  @media ${device.tablet}, (orientation: landscape) { 
-    height: 75%;
+  @media (orientation: landscape) {
+    flex-wrap: wrap;
+    overflow: hidden scroll;
     width: 30%;
+    height: 75%;
+  }
+  @media ${device.laptop}{
+    height: 355px;
     overflow: hidden scroll;
     flex-wrap: wrap;
   }
