@@ -31,7 +31,7 @@ export const PplResultsSection = styled.section`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  @media ${device.tablet}, (orientation: landscape) { 
+  @media ${device.laptop}, (orientation: landscape) { 
     flex-direction: row;
   }
 `
