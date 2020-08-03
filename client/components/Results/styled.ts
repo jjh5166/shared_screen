@@ -4,7 +4,7 @@ import { theme, device } from "../../constants";
 import { CardContainer } from "../Card/styled";
 
 export const ResContainer = styled.div`
-  height: 235px;
+  height: 40vh;
   width: 80%;
   padding: 10px;
   outline: solid 2px ${theme.charlie};
@@ -17,7 +17,7 @@ export const ResContainer = styled.div`
   }
   @media (orientation: landscape) {
     width: 45%;
-    max-height: 75%;
+    height: 50vh;
   }
   @media ${device.laptop}{
     height: 355px;

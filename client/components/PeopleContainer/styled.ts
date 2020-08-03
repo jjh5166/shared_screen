@@ -4,22 +4,24 @@ import { theme, device } from "../../constants";
 
 export const PplContainer = styled.div`
   outline: solid 2px ${theme.charlie};
-  height: 110px;
+  height: 20vh;
   width: 80%;
   padding: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-wrap: nowrap;
-  overflow-x: auto;
-  @media (orientation: landscape) {
-    flex-wrap: wrap;
+  overflow: auto hidden;
+  @media (orientation: landscape), ${device.laptop} {
     overflow: hidden scroll;
+    align-items: unset;
+    flex-wrap: wrap;
+  }
+  @media (orientation: landscape) {
     width: 30%;
-    height: 75%;
+    height: 50vh;
   }
   @media ${device.laptop}{
     height: 355px;
-    overflow: hidden scroll;
-    flex-wrap: wrap;
   }
 `;
