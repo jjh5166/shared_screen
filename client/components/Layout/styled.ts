@@ -3,7 +3,7 @@ import { theme } from '../../constants';
 
 export const LayoutContainer = styled.div`
   overflow: hidden;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: grid;
   grid-template-rows: 4% 1fr;
