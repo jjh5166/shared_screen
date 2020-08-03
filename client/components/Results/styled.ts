@@ -12,6 +12,9 @@ export const ResContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   overflow: hidden scroll;
+  p{
+    align-self: center;
+  }
   @media (orientation: landscape) {
     width: 45%;
     max-height: 75%;

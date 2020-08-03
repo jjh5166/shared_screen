@@ -44,6 +44,11 @@ export default () => {
           )
         })}
       </ResultsContext.Provider>
+      {
+        Object.keys(shared.perPerson).length > 1 &&
+        !sharedCredits.length &&
+        <p>No Results</p>
+      }
     </ResContainer>
   )
 }
