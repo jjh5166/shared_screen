@@ -38,7 +38,7 @@ export const NoImageOverlay = styled(CardOverlayBase)`
   align-items: center;
   justify-content: center;
 `
-export const CardContainer = styled.div`
+export const CardContainer = styled.div<{ tabIndex: any }>`
   flex: 0 0 auto;
   cursor: pointer;
   display: flex;

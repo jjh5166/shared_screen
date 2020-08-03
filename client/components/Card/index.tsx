@@ -16,7 +16,7 @@ export function ItemCard(
   const text: string = (type === "Film") ? content.title : content.name
   const imgPath = (type === "Film") ? posterImagePath(content.posterPath, 185) : faceImagePath(content.imagePath, 185)
   return (
-    <CardContainer onClick={clickHandler}>
+    <CardContainer onClick={clickHandler} tabIndex="0">
       <img src={imgPath} />
       <HoverOverlay text={text}>
         {removeFn &&
