@@ -47,6 +47,7 @@ export const CardContainer = styled.div<{ tabIndex: any }>`
   position: relative;
   margin: 0 5px;
   color: ${theme.charlie};
+  background: black;
   @media ${device.tablet}, (orientation: landscape) { 
     margin: 5px;
   }
