@@ -25,7 +25,7 @@ export const SearchContainer = styled.div`
   };
 `
 export const PplResultsSection = styled.section`
-  min-height: 60%;
+  height: 70%;
   width: 100%;
   display: flex;
   flex-direction: column;
