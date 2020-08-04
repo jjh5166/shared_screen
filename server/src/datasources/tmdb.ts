@@ -35,14 +35,47 @@ export default class MovieAPI extends RESTDataSource {
       imagePath: person.profile_path
     };
   }
-
+  genresReducer(genres: any) {
+    return genres.reduce((arr: any, item: any) => {
+      return arr.concat(item.name)
+    }, [])
+  }
+  castCrewReducer(credits: any) {
+    let directors = new Set<string>();
+    let writers = new Set<string>();
+    credits.crew.forEach((el: any) => {
+      if (el.job === "Director") {
+        directors.add(el.name)
+      }
+      if (el.job === "Screenplay") {
+        writers.add(el.name)
+      }
+    });
+    let cast = credits.cast.reduce((arr: any, item: any) => {
+      return arr.concat(item.name)
+    }, [])
+    return {
+      directedBy: Array.from(directors),
+      writtenBy: Array.from(writers),
+      cast: cast
+    }
+  }
   async searchPerson(searchTerm: string) {
     const response = await this.get('/3/search/person', { query: searchTerm });
     const results = response.results
     return Array.isArray(results)
       ? results.map(person => this.personReducer(person)) : [];
   }
-
+  async fetchFilmDetails(filmId: number) {
+    const res = await this.get(`3/movie/${filmId}?append_to_response=credits`)
+    return {
+      id: res.id,
+      genres: this.genresReducer(res.genres),
+      imdbId: res.imdb_id,
+      rating: res.vote_average,
+      castCrew: this.castCrewReducer(res.credits)
+    }
+  }
   async fetchCredits(personId: number) {
     const res = await this.get(`/3/person/${personId}/movie_credits`);
     const wroteOrDirected = ["Writing", "Directing"];
