@@ -20,6 +20,7 @@ export const DescriptionContainer = styled.div`
   overflow: hidden auto;
 `
 export const PosterContainer = styled.div`
+  position: relative;
   height: fit-content;
   background: black;
   img{
