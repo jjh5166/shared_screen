@@ -1,11 +1,12 @@
 import React, { createContext, useContext } from 'react';
 
 import { ResContainer } from "./styled";
-import { ItemCard } from '../Card';
+
 import { useSharedState } from '../../context/sharedCredits';
 import { useCreditsState } from '../../context/credits';
 import { Film } from '../../interfaces';
 import { useModalDispatch } from '../../context/modal';
+import { ItemCard } from '../Card';
 
 const ResultsContext = createContext<any>(null);
 
