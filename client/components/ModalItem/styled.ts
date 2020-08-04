@@ -21,6 +21,7 @@ export const DescriptionContainer = styled.div`
 `
 export const PosterContainer = styled.div`
   height: fit-content;
+  background: black;
   img{
     border: solid 2px ${theme.bravo}
   }
