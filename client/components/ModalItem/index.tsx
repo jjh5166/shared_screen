@@ -9,7 +9,7 @@ export default ({ film }: { film: Film }) => {
   return (
     <ModalContentContainer onClick={(e) => { e.stopPropagation(); }}>
       <PosterContainer>
-        <img src={posterImagePath(film.posterPath, 342)} />
+        <img src={posterImagePath(film.posterPath, 185)} />
         {!film.posterPath && <NoImageOverlay text={film.title} />}
       </PosterContainer>
       <DescriptionContainer>{film.overview}</DescriptionContainer>
