@@ -16,14 +16,32 @@ export const ModalContentContainer = styled.div`
   line-height: 1.5;
 `
 export const DescriptionContainer = styled.div`
-  height: 130px;
-  overflow: hidden auto;
+  overflow: auto;
+  grid-area: desc;
 `
 export const PosterContainer = styled.div`
   position: relative;
   height: fit-content;
   background: black;
+  grid-area: poster;
   img{
     border: solid 2px ${theme.bravo}
   }
+`
+export const MovieTitle = styled.div`
+  font-size: 2em;
+  grid-area: title;
+`
+export const UnderTitle = styled.div`
+  grid-area: deets;
+`
+export const ModalTop = styled.div`
+  height: 45%;
+  display: grid;
+  grid-template-columns: 30% 5% 1fr;
+  grid-template-rows: 25% 25% 50%;
+  grid-template-areas: 
+    "poster . title"
+    "poster . deets"
+    "poster . desc";
 `
