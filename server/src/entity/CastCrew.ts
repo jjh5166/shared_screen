@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID } from "type-graphql";
+import { ActorCredit } from './ActorCredit';
 
 @ObjectType()
 export class CastCrew {
@@ -11,6 +12,6 @@ export class CastCrew {
   @Field(() => [String])
   writtenBy: string[]
 
-  @Field(() => [String])
-  cast: string[]
+  @Field(() => [ActorCredit])
+  cast: ActorCredit[]
 }
