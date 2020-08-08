@@ -10,7 +10,10 @@ export const fetchFilmDetailsQuery = gql`
       castCrew{
         directedBy,
         writtenBy
-        cast
+        cast{
+          role,
+          name
+        }
       }
     }
   }
