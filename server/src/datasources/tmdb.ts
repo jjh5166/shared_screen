@@ -52,7 +52,7 @@ export default class MovieAPI extends RESTDataSource {
       }
     });
     let cast = credits.cast.reduce((arr: any, item: any) => {
-      return arr.concat(item.name)
+      return arr.concat({ role: item.character, name: item.name })
     }, [])
     return {
       directedBy: Array.from(directors),
