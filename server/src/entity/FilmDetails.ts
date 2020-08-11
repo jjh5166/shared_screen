@@ -13,6 +13,9 @@ export default class FilmDetails {
   imdbId?: string;
 
   @Field({ nullable: true })
+  runtime?: number;
+
+  @Field({ nullable: true })
   rating?: number;
 
   @Field(() => CastCrew, { nullable: true })
