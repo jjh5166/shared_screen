@@ -72,6 +72,7 @@ export default class MovieAPI extends RESTDataSource {
       id: res.id,
       genres: this.genresReducer(res.genres),
       imdbId: res.imdb_id,
+      runtime: res.runtime,
       rating: res.vote_average,
       castCrew: this.castCrewReducer(res.credits)
     }
