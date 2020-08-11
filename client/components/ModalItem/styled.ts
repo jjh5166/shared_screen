@@ -10,8 +10,8 @@ export const ModalContentContainer = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   position: fixed;
-  height: 100%;
-  width: 70%;
+  height: 80%;
+  width: 80%;
   z-index: 110;
   line-height: 1.5;
 `
@@ -33,15 +33,42 @@ export const MovieTitle = styled.div`
   grid-area: title;
 `
 export const UnderTitle = styled.div`
-  grid-area: deets;
+  grid-area: under;
 `
 export const ModalTop = styled.div`
-  height: 45%;
+  height: 64%;
   display: grid;
   grid-template-columns: 30% 5% 1fr;
-  grid-template-rows: 25% 25% 50%;
+  grid-template-rows: 25% 15% 60%;
   grid-template-areas: 
     "poster . title"
-    "poster . deets"
+    "poster . under"
     "poster . desc";
+`
+export const ModalBottom = styled.div`
+  height: 30%;
+  width: 100%;
+`
+export const TapeContainer = styled.div`
+  width: 100%;
+  overflow: auto hidden;
+  height: 40px;
+  display: inline-block;
+  white-space: nowrap;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+  ::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+  };
+`
+export const CastCredit = styled.div`
+  display: inline-block;
+  height: 100%;
+  width: fit-content;
+  margin-right: 8px;
+  div{
+    text-align: left;
+    white-space: nowrap;
+    overflow: scroll hidden;
+  }
 `
