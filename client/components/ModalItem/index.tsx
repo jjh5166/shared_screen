@@ -7,8 +7,9 @@ import { NoImageOverlay } from "../Card/styled";
 import { fetchFilmDetailsQuery } from "../../graphql/fetchFilmDetails";
 import {
   PosterContainer, ModalContentContainer, DescriptionContainer, ModalTop,
-  MovieTitle, UnderTitle, TapeContainer, CastCredit, ModalBottom
+  MovieTitle, UnderTitle, ModalBottom
 } from "./styled";
+import CastTape from "../CastTape";
 
 
 export default ({ film }: { film: Film }) => {
@@ -54,18 +55,4 @@ const MoreFilmDetails = ({ details }: any) => {
       {!!castCrew.cast && <CastTape cast={castCrew.cast} />}
     </ModalBottom>
   )
-}
-const CastTape = ({ cast }: any) => {
-  return (
-    <TapeContainer>
-      {
-        cast.map((member: any, i: number) => (
-          <CastCredit key={member.role + i}>
-            <div>{member.role}</div>
-            <div>{member.name}</div>
-          </CastCredit>
-        )
-        )}
-    </TapeContainer>
-  )
-}
+};
