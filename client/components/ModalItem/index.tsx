@@ -15,9 +15,16 @@ export default ({ film }: { film: Film }) => {
   const { data } = useQuery(fetchFilmDetailsQuery, {
     variables: { id: film.id },
   });
-  console.log(data)
-  const TitleAndRelease: string = film.title + (!!film.releaseDate ? ` (${film.releaseDate.slice(0, 4)})` : "");
-
+  const TitleAndRelease: string =
+    film.title + (
+      !!film.releaseDate ?
+        ` (${film.releaseDate.slice(0, 4)})`
+        : ""
+    );
+  const Genres: string =
+    !!data &&
+    !!data.fetchFilmDetails.genres
+    && data.fetchFilmDetails.genres.join(", ");
   return (
     <ModalContentContainer onClick={(e) => { e.stopPropagation(); }}>
       <ModalTop>
@@ -26,7 +33,7 @@ export default ({ film }: { film: Film }) => {
           {!film.posterPath && <NoImageOverlay text={film.title} />}
         </PosterContainer>
         <MovieTitle>{TitleAndRelease}</MovieTitle>
-        <UnderTitle>{data && !!data.fetchFilmDetails.genres && data.fetchFilmDetails.genres.join(", ")}</UnderTitle>
+        <UnderTitle>{Genres}</UnderTitle>
         <DescriptionContainer>{film.overview}</DescriptionContainer>
       </ModalTop>
       {
