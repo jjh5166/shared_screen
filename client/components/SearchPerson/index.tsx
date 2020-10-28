@@ -1,31 +1,44 @@
-import { Component, createRef } from "react";
+import { Component, Fragment, createRef } from "react";
 import { DebounceInput } from 'react-debounce-input';
-
+import { withApollo } from '@apollo/react-hoc';
+import { wakeServer } from '../../graphql/wakeServer';
 import Suggestions from "../Suggestions";
 import { SearchContainer } from './styled';
 import { SearchContext } from "../../context/search";
+import Loader from 'react-loader-spinner';
+
+import { theme } from '../../constants';
 
 type SearchPersonState = {
   isOpen: boolean;
+  ready: boolean;
   searchTerm: string;
 };
 
-class SearchPerson extends Component<{}, SearchPersonState>  {
+class SearchPerson extends Component<{ client: any }, SearchPersonState>  {
   state: SearchPersonState = {
     isOpen: false,
+    ready: false,
     searchTerm: "",
   };
   private node = createRef<HTMLDivElement>();
   private textInput = createRef<HTMLInputElement>();
   componentDidMount() {
     document.addEventListener('mousedown', this.handleClickOutside);
+    this.props.client
+      .query({ query: wakeServer })
+      .then((result: any) => {
+        if (result.networkStatus === 7) {
+          this.setState({ ready: true })
+        }
+      });
     this.focusTextInput();
   }
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.handleClickOutside);
   }
   focusTextInput = () => {
-    this.textInput.current!.focus();
+    () => this.textInput.current!.focus();
   }
   handleClickOutside = (e: any) => {
     if (this.node.current && this.node.current.contains(e.target)) {
@@ -57,32 +70,37 @@ class SearchPerson extends Component<{}, SearchPersonState>  {
   }
 
   render() {
-    const { searchTerm, isOpen } = this.state;
+    const { searchTerm, isOpen, ready } = this.state;
     const { handleSelection, hideSuggestions } = this
     return (
-      <SearchContainer ref={this.node}>
-        <SearchContext.Provider value={{
-          isOpen,
-          searchTerm,
-          hideSuggestions,
-          handleSelection,
-        }}>
-          <DebounceInput
-            inputRef={this.textInput}
-            minLength={3}
-            debounceTimeout={300}
-            value={this.state.searchTerm}
-            onChange={async (e) => {
-              this.handleChange(e);
-            }} />
-          {
-            !!searchTerm.length &&
-            <Suggestions />
-          }
-        </SearchContext.Provider>
-      </SearchContainer>
+      <Fragment>
+        { !ready ?
+          <Loader type="ThreeDots" color={theme.charlie} height={80} width={80} />
+          :
+          <SearchContainer ref={this.node}>
+            <SearchContext.Provider value={{
+              isOpen,
+              searchTerm,
+              hideSuggestions,
+              handleSelection,
+            }}>
+              <DebounceInput
+                inputRef={this.textInput}
+                minLength={3}
+                debounceTimeout={300}
+                value={this.state.searchTerm}
+                onChange={async (e) => {
+                  this.handleChange(e);
+                }} />
+              {
+                !!searchTerm.length &&
+                <Suggestions />
+              }
+            </SearchContext.Provider>
+          </SearchContainer>}
+      </Fragment>
     )
   }
 }
 
-export default SearchPerson;
+export default withApollo(SearchPerson);
