@@ -38,6 +38,6 @@
     "test": "npm run db:setup && jest --detectOpenHandles"
   },
   "engines": {
-    "node": "14.3.0"
+    "node": "14.9.0"
   }
 }
