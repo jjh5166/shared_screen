@@ -7,7 +7,7 @@ import { searchPersonQuery } from '../../graphql/searchPerson';
 import SuggestedPerson from './SuggestedPerson';
 import { useSearchContext, SearchContextValues } from '../../context/search';
 
-export default () => {
+const Suggestions = () => {
   const { searchTerm, isOpen, hideSuggestions }: SearchContextValues = useSearchContext();
 
   const onKeyDown = (e: any) => {
@@ -63,3 +63,5 @@ export default () => {
     </Query>
   )
 }
+
+export default Suggestions;

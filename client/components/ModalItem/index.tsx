@@ -12,7 +12,7 @@ import {
 import CastTape from "../CastTape";
 
 
-export default ({ film }: { film: Film }) => {
+const ModalItem = ({ film }: { film: Film }) => {
   const { data } = useQuery(fetchFilmDetailsQuery, {
     variables: { id: film.id },
   });
@@ -56,3 +56,5 @@ const MoreFilmDetails = ({ details }: any) => {
     </ModalBottom>
   )
 };
+
+export default ModalItem;
