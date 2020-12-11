@@ -22,7 +22,7 @@ const FilmCard = ({ film, itemIndex }: { film: Film, itemIndex: number }) => {
   );
 }
 
-export default () => {
+const Results = () => {
   const credits = useCreditsState();
   const shared = useSharedState();
   const sharedCredits: Array<Film> = [];
@@ -53,3 +53,5 @@ export default () => {
     </ResContainer>
   )
 }
+
+export default Results;

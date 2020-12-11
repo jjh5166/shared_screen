@@ -18,9 +18,9 @@
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
     "graphql": "^15.4.0",
-    "next": "9.4.4",
+    "next": "^10.0.3",
     "polished": "^3.6.5",
-    "react": "16.13.1",
+    "react": "^17.0.1",
     "react-apollo": "^3.1.5",
     "react-debounce-input": "^3.2.2",
     "react-div-100vh": "^0.3.8",
@@ -47,7 +47,7 @@
     "@types/styled-components": "^5.1.0",
     "babel-jest": "^26.1.0",
     "jest": "^26.1.0",
-    "netlify-cli": "^2.58.0",
+    "netlify-cli": "^2.69.6",
     "typescript": "^3.9.5"
   }
 }

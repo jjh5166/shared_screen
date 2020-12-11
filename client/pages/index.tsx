@@ -11,7 +11,7 @@ import Title from '../components/Title';
 import Modal from '../components/Modal';
 import { ModalProvider } from '../context/modal';
 
-export default () => {
+const IndexPage = () => {
   return (
     <ModalProvider>
       <Layout>
@@ -28,3 +28,5 @@ export default () => {
     </ModalProvider>
   )
 }
+
+export default IndexPage;
