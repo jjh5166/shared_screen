@@ -6,8 +6,7 @@ import Suggestions from "../Suggestions";
 import { SearchContainer, SearchWrapper } from './styled';
 import { SearchContext } from "../../context/search";
 import Loader from 'react-loader-spinner';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { InfoOnHover } from '../InfoOnHover';
 
 import { theme } from '../../constants';
 
@@ -16,6 +15,8 @@ type SearchPersonState = {
   ready: boolean;
   searchTerm: string;
 };
+const searchInfoText = `Search for actors, writers and directors to discover the films they have done together.
+ Once two or more people are selected, the search results will appear on the right side.`;
 
 class SearchPerson extends Component<{ client: any }, SearchPersonState>  {
   state: SearchPersonState = {
@@ -80,7 +81,7 @@ class SearchPerson extends Component<{ client: any }, SearchPersonState>  {
           <Loader type="ThreeDots" color={theme.charlie} height={80} width={80} />
           :
           <SearchWrapper>
-            <FontAwesomeIcon icon={faInfoCircle} size="2x" />
+            <InfoOnHover infoText={searchInfoText} />
             <SearchContainer ref={this.node}>
               <SearchContext.Provider value={{
                 isOpen,
