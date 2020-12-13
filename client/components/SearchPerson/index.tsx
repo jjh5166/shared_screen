@@ -1,11 +1,12 @@
-import { Component, Fragment, createRef } from "react";
+import { Component, createRef } from "react";
 import { DebounceInput } from 'react-debounce-input';
 import { withApollo } from '@apollo/react-hoc';
 import { wakeServer } from '../../graphql/wakeServer';
 import Suggestions from "../Suggestions";
-import { SearchContainer } from './styled';
+import { SearchContainer, SearchWrapper } from './styled';
 import { SearchContext } from "../../context/search";
 import Loader from 'react-loader-spinner';
+import { InfoOnHover } from '../InfoOnHover';
 
 import { theme } from '../../constants';
 
@@ -14,6 +15,8 @@ type SearchPersonState = {
   ready: boolean;
   searchTerm: string;
 };
+const searchInfoText = `Search for actors, writers and directors to discover the films they have done together.
+ Once two or more people are selected, the search results will appear on the right side.`;
 
 class SearchPerson extends Component<{ client: any }, SearchPersonState>  {
   state: SearchPersonState = {
@@ -73,32 +76,35 @@ class SearchPerson extends Component<{ client: any }, SearchPersonState>  {
     const { searchTerm, isOpen, ready } = this.state;
     const { handleSelection, hideSuggestions } = this
     return (
-      <Fragment>
+      <>
         { !ready ?
           <Loader type="ThreeDots" color={theme.charlie} height={80} width={80} />
           :
-          <SearchContainer ref={this.node}>
-            <SearchContext.Provider value={{
-              isOpen,
-              searchTerm,
-              hideSuggestions,
-              handleSelection,
-            }}>
-              <DebounceInput
-                inputRef={this.textInput}
-                minLength={3}
-                debounceTimeout={300}
-                value={this.state.searchTerm}
-                onChange={async (e) => {
-                  this.handleChange(e);
-                }} />
-              {
-                !!searchTerm.length &&
-                <Suggestions />
-              }
-            </SearchContext.Provider>
-          </SearchContainer>}
-      </Fragment>
+          <SearchWrapper>
+            <InfoOnHover infoText={searchInfoText} />
+            <SearchContainer ref={this.node}>
+              <SearchContext.Provider value={{
+                isOpen,
+                searchTerm,
+                hideSuggestions,
+                handleSelection,
+              }}>
+                <DebounceInput
+                  inputRef={this.textInput}
+                  minLength={3}
+                  debounceTimeout={300}
+                  value={this.state.searchTerm}
+                  onChange={async (e) => {
+                    this.handleChange(e);
+                  }} />
+                {
+                  !!searchTerm.length &&
+                  <Suggestions />
+                }
+              </SearchContext.Provider>
+            </SearchContainer>
+          </SearchWrapper>}
+      </>
     )
   }
 }
