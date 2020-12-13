@@ -6,12 +6,12 @@ import { theme, device } from "../../constants";
 export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 85%;
+  width: 100%;
   position: relative;
   align-items: center;
-  @media ${device.tablet}{
+  /* @media ${device.tablet}{
     width: 35%;
-  }
+  } */
   input{
     text-indent: 5px;
     width: 100%;
@@ -33,5 +33,19 @@ export const PplResultsSection = styled.section`
   align-items: center;
   @media ${device.laptop}, (orientation: landscape) { 
     flex-direction: row;
+  }
+`
+export const SearchWrapper = styled.div`
+position: relative;
+width: 70%;
+display: flex;
+svg{
+  left: -38px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+    @media ${device.tablet}{
+    width: 35%;
   }
 `
